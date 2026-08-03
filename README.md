@@ -24,13 +24,14 @@ DNS（Domain Name System）という実在する大規模分散システムを�
 ```text
 README.md              プロジェクト案内
 AGENTS.md              AIエージェント向け作業規約
-docs/                  企画、構成、執筆規約
+docs/                  企画、構成、執筆規約、進行状況
 chapters/              章の原稿と詳細構成案
 references/sources.md  出典と、それが裏付ける記述の対応表
 ```
 
 - [企画趣意](docs/concept.md)
 - [全体構成案](docs/outline.md)
+- [進行状況](docs/progress.md)
 - [執筆スタイルガイド](docs/style-guide.md)
 - [出典と裏付け対象](references/sources.md)
 - [AIエージェント向け執筆規約](AGENTS.md)
