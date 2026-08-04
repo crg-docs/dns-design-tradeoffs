@@ -1,12 +1,22 @@
-# 図示方式の検証ページ
+# 図の下書き
 
-このページは #20（図示の方式の決定）の検証用である。方式が確定したら削除する。本書の本文ではない。
+このページは本書の本文ではない。第1章、第2章、第4章で使う図の下書きを置く作業用ページである。各章が図を取り込んだら、対応する節を削除する。全章完成時に空になっていることを #19 の通し確認で確かめる。
 
-検証したいことは3つ。
+## 図示方式（2026-08-04 に決定）
 
-1. mermaidのコードフェンスがGitHub Pages上で図として描画されるか。
-2. mermaidで書ける図と書けない図の切り分け。
-3. 手書きのインラインSVGがPages上で表示されるか。
+| 用途 | 方式 |
+| --- | --- |
+| 階層構造、委譲、問い合わせ経路、ゾーン境界 | mermaid のコードフェンス |
+| 時間軸（TTL満了、変更反映の時間差、複製の伝播） | 手書きのインラインSVG |
+
+Pages上で3種類とも意図通り描画されることを目視確認した。ゾーン境界は当初手書きSVGが必要かと考えたが、mermaid の `subgraph` で足りると判断した。
+
+検証で分かった実装上の事実を残す。
+
+- Liquid はフロントマターのない `.md` でも展開されるため、`_layouts/default.html` の上書きは不要。`{% raw %}{% include mermaid.html %}{% endraw %}` を図のあるページの末尾へ置けばよい。
+- kramdown は ` ```mermaid ` を `<pre><code class="language-mermaid">` として出力し、mermaid はこの形を認識しない。`_includes/mermaid.html` で `.mermaid` の div へ置き換えてから初期化している。
+- `mermaid@11` の `dist/mermaid.min.js` は末尾で `globalThis["mermaid"]` へ代入するため、グローバル参照で初期化できる。冒頭が `__esbuild_esm_mermaid_nm` で始まるので一見ESM形式に見えるが、UMDとして使える。
+- 手書きのインラインSVGはkramdownをそのまま通過する。
 
 ## 1. 階層的名前空間と委譲（mermaid: graph）
 
@@ -95,14 +105,5 @@ sequenceDiagram
     </marker>
   </defs>
 </svg>
-
-## 検証結果
-
-（Pagesで確認したら記入する）
-
-- mermaid graph:
-- mermaid sequenceDiagram:
-- mermaid subgraph によるゾーン境界:
-- インラインSVG:
 
 {% include mermaid.html %}
