@@ -5,14 +5,15 @@ DNS（Domain Name System）という実在する大規模分散システムを�
 ## 目次
 
 - [第0章 DNSはなぜ複雑に見えるのか](chapters/00-introduction.md)
-- [第1章 拡張性――HOSTS.TXTと分散管理のケーススタディ](chapters/01-before-dns.md)（構成案）
+- [第1章 見取り図――DNSは何を、いつ、なぜ足してきたか](chapters/01-timeline.md)（構成案）
+- [第2章 拡張性――集中管理を分割する](chapters/02-scalability.md)（構成案）
 
-現在は企画と導入、および第1章の構成を固める段階です。第2章以降の本文は、構成と出典を確認しながら小さな単位で追加します。
+現在は企画と導入、および第1章と第2章の構成を固める段階です。第3章以降の本文は、構成と出典を確認しながら小さな単位で追加します。
 
 ### 本書について
 
 - [本書の狙いと、DNSを題材に選んだ理由](docs/concept.md)
-- [全体構成案（第0〜9章）](docs/outline.md)
+- [全体構成案（第0〜10章）](docs/outline.md)
 - [出典と、それが裏付ける記述](references/sources.md)
 
 ## 対象読者
