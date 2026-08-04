@@ -9,6 +9,12 @@ DNS（Domain Name System）という実在する大規模分散システムを�
 
 現在は企画と導入、および第1章の構成を固める段階です。第2章以降の本文は、構成と出典を確認しながら小さな単位で追加します。
 
+### 本書について
+
+- [本書の狙いと、DNSを題材に選んだ理由](docs/concept.md)
+- [全体構成案（第0〜9章）](docs/outline.md)
+- [出典と、それが裏付ける記述](references/sources.md)
+
 ## 対象読者
 
 - DNSの仕組みを、非機能要件と設計理由から理解したいエンジニア
@@ -29,9 +35,8 @@ chapters/              章の原稿と詳細構成案
 references/sources.md  出典と、それが裏付ける記述の対応表
 ```
 
-- [企画趣意](docs/concept.md)
-- [全体構成案](docs/outline.md)
-- [進行状況](docs/progress.md)
+### 制作用の資料
+
 - [執筆スタイルガイド](docs/style-guide.md)
-- [出典と裏付け対象](references/sources.md)
+- [進行状況と各作業の終了条件](docs/progress.md)
 - [AIエージェント向け執筆規約](AGENTS.md)
