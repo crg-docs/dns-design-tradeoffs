@@ -38,5 +38,6 @@ references/sources.md  出典と、それが裏付ける記述の対応表
 ### 制作用の資料
 
 - [執筆スタイルガイド](docs/style-guide.md)
+- [仕組みの分担表](docs/mechanism-map.md)
 - [進行状況と各作業の終了条件](docs/progress.md)
 - [AIエージェント向け執筆規約](AGENTS.md)
