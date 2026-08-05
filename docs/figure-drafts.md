@@ -81,81 +81,90 @@ sequenceDiagram
 
 時代の見出しは開始年の昇順に並べているが、時代の期間は重なる。標準化が並行して走るためであり、束の中では厳密な年代順を主張しない。
 
-<svg viewBox="0 0 680 996" width="100%" role="img" aria-label="DNSに何がいつ足されたかを時代ごとに縦方向に並べた年表">
-  <line x1="104" y1="72" x2="104" y2="952" stroke="#d0d7de" stroke-width="2"/>
+<svg viewBox="0 0 680 1092" width="100%" role="img" aria-label="DNSに何がいつ足されたかを時代ごとに縦方向に並べた年表">
+  <line x1="104" y1="72" x2="104" y2="1048" stroke="#d0d7de" stroke-width="2"/>
   <text x="0" y="46" font-size="13" font-weight="bold" fill="#0969da">集中管理の時代</text>
   <line x1="0" y1="54" x2="680" y2="54" stroke="#0969da" stroke-width="1" opacity="0.25"/>
-  <text x="86" y="78" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1982</text>
+  <text x="86" y="78" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1973</text>
   <circle cx="104" cy="74" r="4" fill="#0969da"/>
-  <text x="120" y="78" font-size="13" fill="#24292f">ホスト表と、その配布サービス（RFC 810 / 811）</text>
-  <text x="86" y="110" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1985</text>
+  <text x="120" y="78" font-size="13" fill="#24292f">各サイトが自前のホスト表を維持していた（RFC 606）</text>
+  <text x="86" y="110" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1974</text>
   <circle cx="104" cy="106" r="4" fill="#0969da"/>
-  <text x="120" y="110" font-size="13" fill="#24292f">ホスト表仕様の改訂（RFC 952 / 953）</text>
-  <text x="0" y="152" font-size="13" font-weight="bold" fill="#0969da">分散への転換</text>
-  <line x1="0" y1="160" x2="680" y2="160" stroke="#0969da" stroke-width="1" opacity="0.25"/>
-  <text x="86" y="184" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1983</text>
-  <circle cx="104" cy="180" r="4" fill="#0969da"/>
-  <text x="120" y="184" font-size="13" fill="#24292f">ドメイン名の最初の仕様（RFC 882 / 883）</text>
-  <text x="86" y="216" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1987</text>
-  <circle cx="104" cy="212" r="4" fill="#0969da"/>
-  <text x="120" y="216" font-size="13" fill="#24292f">DNSの仕様、STD 13（RFC 1034 / 1035）</text>
-  <text x="86" y="248" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1989</text>
+  <text x="120" y="110" font-size="13" fill="#24292f">NICが機械可読の一覧を生成する体制へ（RFC 608）</text>
+  <text x="86" y="142" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1982</text>
+  <circle cx="104" cy="138" r="4" fill="#0969da"/>
+  <text x="120" y="142" font-size="13" fill="#24292f">ホスト表と、その配布サービス（RFC 810 / 811）</text>
+  <text x="86" y="174" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1985</text>
+  <circle cx="104" cy="170" r="4" fill="#0969da"/>
+  <text x="120" y="174" font-size="13" fill="#24292f">ホスト表仕様の改訂（RFC 952 / 953）</text>
+  <text x="0" y="216" font-size="13" font-weight="bold" fill="#0969da">分散への転換</text>
+  <line x1="0" y1="224" x2="680" y2="224" stroke="#0969da" stroke-width="1" opacity="0.25"/>
+  <text x="86" y="248" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1983</text>
   <circle cx="104" cy="244" r="4" fill="#0969da"/>
-  <text x="120" y="248" font-size="13" fill="#24292f">Internet hostへの要求、STD 3（RFC 1123）</text>
-  <text x="0" y="290" font-size="13" font-weight="bold" fill="#0969da">隙間を埋める</text>
-  <line x1="0" y1="298" x2="680" y2="298" stroke="#0969da" stroke-width="1" opacity="0.25"/>
-  <text x="86" y="322" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1996</text>
-  <circle cx="104" cy="318" r="4" fill="#0969da"/>
-  <text x="120" y="322" font-size="13" fill="#24292f">変更通知と差分転送（RFC 1996 / 1995）</text>
-  <text x="86" y="354" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1997</text>
-  <circle cx="104" cy="350" r="4" fill="#0969da"/>
-  <text x="120" y="354" font-size="13" fill="#24292f">仕様の明確化（RFC 2181）</text>
-  <text x="86" y="386" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1998</text>
-  <circle cx="104" cy="382" r="4" fill="#0969da"/>
-  <text x="120" y="386" font-size="13" fill="#24292f">不在応答の再利用（RFC 2308）</text>
-  <text x="0" y="428" font-size="13" font-weight="bold" fill="#0969da">拡張の余地を作る</text>
-  <line x1="0" y1="436" x2="680" y2="436" stroke="#0969da" stroke-width="1" opacity="0.25"/>
-  <text x="86" y="460" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1999</text>
-  <circle cx="104" cy="456" r="4" fill="#0969da"/>
-  <text x="120" y="460" font-size="13" fill="#24292f">EDNSの導入（RFC 2671）</text>
-  <text x="86" y="492" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2013</text>
-  <circle cx="104" cy="488" r="4" fill="#0969da"/>
-  <text x="120" y="492" font-size="13" fill="#24292f">EDNS(0)、STD 75（RFC 6891）</text>
-  <text x="0" y="534" font-size="13" font-weight="bold" fill="#0969da">応答を信用する</text>
-  <line x1="0" y1="542" x2="680" y2="542" stroke="#0969da" stroke-width="1" opacity="0.25"/>
-  <text x="86" y="566" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2005</text>
-  <circle cx="104" cy="562" r="4" fill="#0969da"/>
-  <text x="120" y="566" font-size="13" fill="#24292f">出所認証と完全性（RFC 4033 / 4034 / 4035）</text>
-  <text x="0" y="608" font-size="13" font-weight="bold" fill="#0969da">悪用への耐性</text>
-  <line x1="0" y1="616" x2="680" y2="616" stroke="#0969da" stroke-width="1" opacity="0.25"/>
-  <text x="86" y="640" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2008</text>
-  <circle cx="104" cy="636" r="4" fill="#0969da"/>
-  <text x="120" y="640" font-size="13" fill="#24292f">反射攻撃の防止、BCP 140（RFC 5358）</text>
-  <text x="86" y="672" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2009</text>
-  <circle cx="104" cy="668" r="4" fill="#0969da"/>
-  <text x="120" y="672" font-size="13" fill="#24292f">偽造応答への耐性（RFC 5452）</text>
-  <text x="86" y="704" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2010</text>
-  <circle cx="104" cy="700" r="4" fill="#0969da"/>
-  <text x="120" y="704" font-size="13" fill="#24292f">ゾーン転送の明確化（RFC 5936）</text>
-  <text x="0" y="746" font-size="13" font-weight="bold" fill="#0969da">見られていることへの対処</text>
-  <line x1="0" y1="754" x2="680" y2="754" stroke="#0969da" stroke-width="1" opacity="0.25"/>
-  <text x="86" y="778" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2016</text>
-  <circle cx="104" cy="774" r="4" fill="#0969da"/>
-  <text x="120" y="778" font-size="13" fill="#24292f">TLS暗号化、TCP要件、Client Subnet（RFC 7858 / 7766 / 7871）</text>
-  <text x="86" y="810" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2018</text>
-  <circle cx="104" cy="806" r="4" fill="#0969da"/>
-  <text x="120" y="810" font-size="13" fill="#24292f">HTTPS暗号化（RFC 8484）</text>
-  <text x="86" y="842" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2021</text>
-  <circle cx="104" cy="838" r="4" fill="#0969da"/>
-  <text x="120" y="842" font-size="13" fill="#24292f">問い合わせ名の最小化（RFC 9156）</text>
-  <text x="86" y="874" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2022</text>
+  <text x="120" y="248" font-size="13" fill="#24292f">ドメイン名の最初の仕様（RFC 882 / 883）</text>
+  <text x="86" y="280" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1984</text>
+  <circle cx="104" cy="276" r="4" fill="#0969da"/>
+  <text x="120" y="280" font-size="13" fill="#24292f">ドメイン名への移行スケジュール（RFC 921）</text>
+  <text x="86" y="312" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1987</text>
+  <circle cx="104" cy="308" r="4" fill="#0969da"/>
+  <text x="120" y="312" font-size="13" fill="#24292f">DNSの仕様、STD 13（RFC 1034 / 1035）</text>
+  <text x="86" y="344" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1989</text>
+  <circle cx="104" cy="340" r="4" fill="#0969da"/>
+  <text x="120" y="344" font-size="13" fill="#24292f">Internet hostへの要求、STD 3（RFC 1123）</text>
+  <text x="0" y="386" font-size="13" font-weight="bold" fill="#0969da">隙間を埋める</text>
+  <line x1="0" y1="394" x2="680" y2="394" stroke="#0969da" stroke-width="1" opacity="0.25"/>
+  <text x="86" y="418" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1996</text>
+  <circle cx="104" cy="414" r="4" fill="#0969da"/>
+  <text x="120" y="418" font-size="13" fill="#24292f">変更通知と差分転送（RFC 1996 / 1995）</text>
+  <text x="86" y="450" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1997</text>
+  <circle cx="104" cy="446" r="4" fill="#0969da"/>
+  <text x="120" y="450" font-size="13" fill="#24292f">仕様の明確化（RFC 2181）</text>
+  <text x="86" y="482" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1998</text>
+  <circle cx="104" cy="478" r="4" fill="#0969da"/>
+  <text x="120" y="482" font-size="13" fill="#24292f">不在応答の再利用（RFC 2308）</text>
+  <text x="0" y="524" font-size="13" font-weight="bold" fill="#0969da">拡張の余地を作る</text>
+  <line x1="0" y1="532" x2="680" y2="532" stroke="#0969da" stroke-width="1" opacity="0.25"/>
+  <text x="86" y="556" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1999</text>
+  <circle cx="104" cy="552" r="4" fill="#0969da"/>
+  <text x="120" y="556" font-size="13" fill="#24292f">EDNSの導入（RFC 2671）</text>
+  <text x="86" y="588" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2013</text>
+  <circle cx="104" cy="584" r="4" fill="#0969da"/>
+  <text x="120" y="588" font-size="13" fill="#24292f">EDNS(0)、STD 75（RFC 6891）</text>
+  <text x="0" y="630" font-size="13" font-weight="bold" fill="#0969da">応答を信用する</text>
+  <line x1="0" y1="638" x2="680" y2="638" stroke="#0969da" stroke-width="1" opacity="0.25"/>
+  <text x="86" y="662" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2005</text>
+  <circle cx="104" cy="658" r="4" fill="#0969da"/>
+  <text x="120" y="662" font-size="13" fill="#24292f">出所認証と完全性（RFC 4033 / 4034 / 4035）</text>
+  <text x="0" y="704" font-size="13" font-weight="bold" fill="#0969da">悪用への耐性</text>
+  <line x1="0" y1="712" x2="680" y2="712" stroke="#0969da" stroke-width="1" opacity="0.25"/>
+  <text x="86" y="736" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2008</text>
+  <circle cx="104" cy="732" r="4" fill="#0969da"/>
+  <text x="120" y="736" font-size="13" fill="#24292f">反射攻撃の防止、BCP 140（RFC 5358）</text>
+  <text x="86" y="768" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2009</text>
+  <circle cx="104" cy="764" r="4" fill="#0969da"/>
+  <text x="120" y="768" font-size="13" fill="#24292f">偽造応答への耐性（RFC 5452）</text>
+  <text x="86" y="800" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2010</text>
+  <circle cx="104" cy="796" r="4" fill="#0969da"/>
+  <text x="120" y="800" font-size="13" fill="#24292f">ゾーン転送の明確化（RFC 5936）</text>
+  <text x="0" y="842" font-size="13" font-weight="bold" fill="#0969da">見られていることへの対処</text>
+  <line x1="0" y1="850" x2="680" y2="850" stroke="#0969da" stroke-width="1" opacity="0.25"/>
+  <text x="86" y="874" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2016</text>
   <circle cx="104" cy="870" r="4" fill="#0969da"/>
-  <text x="120" y="874" font-size="13" fill="#24292f">QUIC暗号化（RFC 9250）</text>
-  <text x="0" y="916" font-size="13" font-weight="bold" fill="#0969da">壊れても答え続ける</text>
-  <line x1="0" y1="924" x2="680" y2="924" stroke="#0969da" stroke-width="1" opacity="0.25"/>
-  <text x="86" y="948" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2020</text>
-  <circle cx="104" cy="944" r="4" fill="#0969da"/>
-  <text x="120" y="948" font-size="13" fill="#24292f">期限切れデータによる応答継続（RFC 8767）</text>
+  <text x="120" y="874" font-size="13" fill="#24292f">TLS暗号化、TCP要件、Client Subnet（RFC 7858 / 7766 / 7871）</text>
+  <text x="86" y="906" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2018</text>
+  <circle cx="104" cy="902" r="4" fill="#0969da"/>
+  <text x="120" y="906" font-size="13" fill="#24292f">HTTPS暗号化（RFC 8484）</text>
+  <text x="86" y="938" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2021</text>
+  <circle cx="104" cy="934" r="4" fill="#0969da"/>
+  <text x="120" y="938" font-size="13" fill="#24292f">問い合わせ名の最小化（RFC 9156）</text>
+  <text x="86" y="970" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2022</text>
+  <circle cx="104" cy="966" r="4" fill="#0969da"/>
+  <text x="120" y="970" font-size="13" fill="#24292f">QUIC暗号化（RFC 9250）</text>
+  <text x="0" y="1012" font-size="13" font-weight="bold" fill="#0969da">壊れても答え続ける</text>
+  <line x1="0" y1="1020" x2="680" y2="1020" stroke="#0969da" stroke-width="1" opacity="0.25"/>
+  <text x="86" y="1044" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2020</text>
+  <circle cx="104" cy="1040" r="4" fill="#0969da"/>
+  <text x="120" y="1044" font-size="13" fill="#24292f">期限切れデータによる応答継続（RFC 8767）</text>
 </svg>
 
 ## 3. TTLと変更反映の時間差（インラインSVG）
