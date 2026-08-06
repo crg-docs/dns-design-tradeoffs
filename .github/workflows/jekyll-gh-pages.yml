@@ -49,3 +49,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+        with:
+          # 既定の待ち時間は10分。GitHub Pages 側のデプロイがそれを超えて
+          # 3回連続で打ち切られたため30分へ延長する（2026-08-07）。
+          # ビルドは成功しており、失敗していたのはデプロイの完了待ちだけ。
+          timeout: 1800000
