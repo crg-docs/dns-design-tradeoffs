@@ -49,12 +49,12 @@
 | [RFC 606: Host Names On-line](https://www.rfc-editor.org/rfc/rfc606.html) | HOSTS.TXT以前の状態。公式の一覧はあったが機械可読でなく、各サイトが自前の表を手で維持し互いに食い違っていたこと | 実読済み（2026-08-05）。1973年12月、Legacy Stream。同時代の一人称記録であり回顧ではない。**集中管理がより悪い分散状態への対処だった**ことを示す中心資料 |
 | [RFC 608: Host Names On-Line](https://www.rfc-editor.org/rfc/rfc608.html) | NICが機械可読の一覧を定期生成する体制を引き受けた経緯。更新が週次のバッチ生成として想定されていたこと | 実読済み（2026-08-05）。1974年1月、RFC 810により廃止 |
 | [RFC 810: DoD Internet Host Table Specification](https://www.rfc-editor.org/rfc/rfc810.html) | 登録工程（名前を使う前にNICと交渉して登録する。連絡手段に電話番号が併記）、取得工程（FTPで匿名取得）、変換は利用者の責任 | 実読済み（2026-08-05）。ASSUMPTIONS 第6項・第7項。1982年3月。RFC 608を廃止し、RFC 952により廃止 |
-| [RFC 811: Hostnames Server](https://www.rfc-editor.org/rfc/rfc811.html) | HOSTS.TXTの登録・取得と、更新主体・配布工程 | TODO: 要検証（1982年3月。RFC 953により廃止） |
+| [RFC 811: Hostnames Server](https://www.rfc-editor.org/rfc/rfc811.html) | HOSTS.TXTの登録・取得と、更新主体・配布工程 | 実読済み（2026-08-05）。1982年3月、RFC 953により廃止。第2章では登録工程の根拠にRFC 810を使い、取得プロトコルを扱う場合に参照する |
 | [RFC 921: Domain Name System Implementation Schedule - Revised](https://www.rfc-editor.org/rfc/rfc921.html) | 移行期の具体的な互換措置。旧名に `.ARPA` を付けたものを新しい名前とする制約、DHOSTS.TXTによる新旧二重提供、平坦な名前空間から階層への一意性の移し替え | 実読済み（2026-08-05）。1984年10月、IABとDARPAの公式方針。RFC 897とRFC 881を更新。**予定が守られなかったことを当事者が記録している**ため第9章でも使う |
 | [RFC 952: DoD Internet Host Table Specification](https://www.rfc-editor.org/rfc/rfc952.html) | HOSTS.TXT期後半のホスト表仕様。ホスト名の書式規則と、役割を名前に埋め込む規約（-GATEWAY、-GW） | 実読済み（2026-08-05）。1985年10月。RFC 608/810を廃止。廃止されておらずRFC 1123が更新しているため、「DNS以前の仕様」として過去形で扱わない |
-| [RFC 953: Hostname Server](https://www.rfc-editor.org/rfc/rfc953.html) | ホスト表の配布・取得サービスの後期仕様 | TODO: 要検証（1985年10月。RFC 811を廃止。現在はHistoric） |
-| [RFC 882: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc882.html) | 従来方式の制約と、階層化・分散管理が解決しようとした問題 | TODO: 要検証（1983年11月。RFC 973が更新、RFC 1034/1035により廃止） |
-| [RFC 883: Domain Names—Implementation and Specification](https://www.rfc-editor.org/rfc/rfc883.html) | 初期DNSが導入した運用上の役割とトレードオフ | TODO: 要検証（1983年11月。RFC 973が更新、RFC 1034/1035により廃止） |
+| [RFC 953: Hostname Server](https://www.rfc-editor.org/rfc/rfc953.html) | ホスト表の配布・取得サービスの後期仕様 | 実読済み（2026-08-05）。1985年10月、RFC 811を廃止。現在はHistoric。RFC 952が配布手段として参照している |
+| [RFC 882: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc882.html) | 従来方式の制約と、階層化・分散管理が解決しようとした問題 | 実読済み（2026-08-05）。1983年11月、RFC 973が更新し、RFC 1034/1035により廃止。表の大きさと更新頻度が管理可能な限界に近いという記述を第2章で参照する |
+| [RFC 883: Domain Names—Implementation and Specification](https://www.rfc-editor.org/rfc/rfc883.html) | 初期DNSが導入した運用上の役割とトレードオフ | 実読済み（2026-08-05）。1983年11月、RFC 973が更新し、RFC 1034/1035により廃止。第2章の責任分割は概念を定めるRFC 882と後継のRFC 1034で裏付け、実装詳細を扱う場合に参照する |
 
 ## 出典管理上の未解決事項
 
