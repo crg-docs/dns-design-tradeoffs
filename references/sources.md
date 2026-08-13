@@ -16,7 +16,7 @@
 | --- | --- | --- |
 | [RFC 606: Host Names On-line](https://www.rfc-editor.org/rfc/rfc606.html) | DNS以前にもホスト名とアドレスの対応表が使われていたこと | 1973年12月。DNSが名前解決そのものを発明したとは書かない |
 | [RFC 608: Host Names On-Line](https://www.rfc-editor.org/rfc/rfc608.html) | NICが機械可読な一覧を生成し、各サイトへ提供する案 | 1974年1月。集中管理が表の不一致への対処だったことを示す |
-| [RFC 1738: Uniform Resource Locators (URL)](https://www.rfc-editor.org/rfc/rfc1738.html) | URLが方式やホストなどを含み、ホスト名そのものではないこと | 1994年12月。現在はRFC 3986などにより廃止されているため、初期Webとの時代差を示す歴史資料としてのみ使う |
+| [RFC 1738: Uniform Resource Locators (URL)](https://www.rfc-editor.org/rfc/rfc1738.html) | URLが方式やホストなどを含み、ホスト名そのものではないこと | 1994年12月。RFC 3986は本文書を更新し、RFC 4248とRFC 4266が本文書を廃止している。初期Webとの時代差を示す歴史資料としてのみ使う |
 | [RFC 1794: DNS Support for Load Balancing](https://www.rfc-editor.org/rfc/rfc1794.html) | DNSを使った負荷分散が、初期DNS仕様より後に独立した運用上の問題として文書化されたこと | 1995年4月、Informational。現代の負荷分散方式全般の仕様として一般化しない |
 
 ## 性能、整合性、変更反映
