@@ -10,6 +10,15 @@
 | [RFC 1035: Domain Names—Implementation and Specification](https://www.rfc-editor.org/rfc/rfc1035.html) | 名前サーバーとリゾルバの実装、マスターファイルなど、分散したデータを提供・利用する仕組み | RFC 1034と一組で読む。1987年11月、STD 13。29件のRFCが更新しており、本書の論点に関わる更新（RFC 2181、2308、4033〜4035、5936、7766、8767）は該当章で個別に確認する |
 | [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) | ドメイン、ゾーン、委譲などを現行用語で区別する基準 | 歴史資料中の語と現行語を区別する。2024年、BCP 219。RFC 8499を廃止し、RFC 2308を更新（Negative Cache関連の用語は本文書の定義を優先する） |
 
+## 名前解決を読むための前提
+
+| 資料 | 本書で裏付ける記述 | 主な箇所・注意 |
+| --- | --- | --- |
+| [RFC 606: Host Names On-line](https://www.rfc-editor.org/rfc/rfc606.html) | DNS以前にもホスト名とアドレスの対応表が使われていたこと | 1973年12月。DNSが名前解決そのものを発明したとは書かない |
+| [RFC 608: Host Names On-Line](https://www.rfc-editor.org/rfc/rfc608.html) | NICが機械可読な一覧を生成し、各サイトへ提供する案 | 1974年1月。集中管理が表の不一致への対処だったことを示す |
+| [RFC 1738: Uniform Resource Locators (URL)](https://www.rfc-editor.org/rfc/rfc1738.html) | URLが方式やホストなどを含み、ホスト名そのものではないこと | 1994年12月。現在はRFC 3986などにより廃止されているため、初期Webとの時代差を示す歴史資料としてのみ使う |
+| [RFC 1794: DNS Support for Load Balancing](https://www.rfc-editor.org/rfc/rfc1794.html) | DNSを使った負荷分散が、初期DNS仕様より後に独立した運用上の問題として文書化されたこと | 1995年4月、Informational。現代の負荷分散方式全般の仕様として一般化しない |
+
 ## 性能、整合性、変更反映
 
 | 資料 | 本書で裏付ける記述 | 問題・環境・トレードオフ |
