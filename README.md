@@ -2,6 +2,8 @@
 
 DNS（Domain Name System）という実在する大規模分散システムを題材に、非機能要件を設計判断へ変換する過程を学ぶ技術読み物です。DNSの歴史や仕様の網羅ではなく、要件を具体化し、設計がもたらす効果と代償を理解することを目指します。
 
+**[GitHub Pagesで本書を読む](https://crg-docs.github.io/dns-design-tradeoffs/)**
+
 ## 目次
 
 - [第0章 DNSはなぜ複雑に見えるのか](chapters/00-introduction.md)
