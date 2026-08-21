@@ -45,4 +45,5 @@ references/sources.md  出典と、それが裏付ける記述の対応表
 - [仕組みの分担表](docs/mechanism-map.md)
 - [HOSTS.TXT期の一次資料からの抽出](references/hosts-txt-findings.md)
 - [進行状況と各作業の終了条件](docs/progress.md)
+- [文書ごとの構成意図と見送った案](docs/document-design/README.md)
 - [AIエージェント向け執筆規約](AGENTS.md)
