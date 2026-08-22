@@ -38,6 +38,7 @@
 
 | 資料 | 本書で裏付ける記述 | 主な箇所・注意 |
 | --- | --- | --- |
+| [RFC 3833: Threat Analysis of the Domain Name System (DNS)](https://www.rfc-editor.org/rfc/rfc3833.html) | DNSに対する脅威を、名前空間、名前サーバー、リゾルバなどの構成要素ごとに整理した分析 | 2004年8月、Informational。対策の仕様ではなく脅威分析として扱う。個別の事件名や対策の普及時期の根拠には使わない |
 | [RFC 4033: DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033.html) | DNSSECの目的、能力、制約、導入要件 | 導入と脅威・非目標。2005年3月、RFC 6014と6840が更新。4章に非目標が明示されており（機密性、アクセス制御、DoS耐性を提供しない）、機密性を提供する仕組みとは書かない |
 | [RFC 4034: Resource Records for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4034.html) | DNSKEY、RRSIG、NSEC、DSの形式と意味 | レコード形式の根拠。2005年3月。RFC 4470、6014、6840、6944、9077、9824、9905が更新しており、アルゴリズムとNSECの扱いは更新後を確認する |
 | [RFC 4035: Protocol Modifications for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4035.html) | 署名生成、応答、検証、Authenticated Data等のプロトコル動作 | 検証状態と実装役割を一般化しすぎない。2005年3月。RFC 4470、6014、6840、8198、9077、9520、9824が更新している |
