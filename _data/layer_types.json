@@ -1,0 +1,6 @@
+{
+  "idea": { "label": "発想", "color": "#1f883d" },
+  "research": { "label": "調査", "color": "#bf8700" },
+  "llm": { "label": "LLMメモ", "color": "#8250df" },
+  "alternative": { "label": "別案", "color": "#cf222e" }
+}

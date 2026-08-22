@@ -37,6 +37,7 @@ AGENTS.md              AIエージェント向け作業規約
 docs/                  企画、構成、執筆規約、進行状況
 chapters/              章の原稿と詳細構成案
 references/sources.md  出典と、それが裏付ける記述の対応表
+_data/layers/          本文の特定箇所に重ねる補助情報
 ```
 
 ### 制作用の資料
@@ -47,3 +48,4 @@ references/sources.md  出典と、それが裏付ける記述の対応表
 - [進行状況と各作業の終了条件](docs/progress.md)
 - [文書ごとの構成意図と見送った案](docs/document-design/README.md)
 - [AIエージェント向け執筆規約](AGENTS.md)
+- [文章レイヤーのデータ形式と運用方法](docs/layers.md)
