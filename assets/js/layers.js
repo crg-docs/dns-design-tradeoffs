@@ -36,6 +36,7 @@
     note.className = "document-layer-note";
     note.dataset.layerType = entry.type;
     note.style.setProperty("--layer-color", data.types[entry.type].color);
+    note.style.setProperty("--layer-dark-color", data.types[entry.type].darkColor);
     note.hidden = true;
     const heading = document.createElement("strong");
     heading.textContent = data.types[entry.type].label;
@@ -64,6 +65,13 @@
   Object.entries(data.types).forEach(([type, definition]) => {
     addToggle(definition.label, false, (visible) => (notes.get(type) || []).forEach((note) => { note.hidden = !visible; }));
   });
+  const metadata = document.createElement("div");
+  metadata.className = "layer-metadata";
+  const designLink = document.createElement("a");
+  designLink.href = data.metadata.documentDesign;
+  designLink.textContent = "章の目的・設計判断";
+  metadata.append(designLink);
   panel.append(controls);
+  panel.append(metadata);
   document.body.append(panel);
 })();

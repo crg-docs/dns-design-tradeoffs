@@ -17,18 +17,21 @@
 .layer-panel fieldset { margin: 0.5rem 0 0; padding: 0; border: 0; }
 .layer-panel label { display: block; margin-top: 0.35rem; }
 .layer-panel input { margin-right: 0.4rem; }
+.layer-metadata { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid currentColor; }
+.layer-metadata a { color: inherit; }
 
 .document-layer-note {
+  --layer-active-color: var(--layer-color);
   margin: 0.75rem 0 1rem;
   padding: 0.75rem 1rem;
-  border: 1px solid var(--layer-color);
+  border: 1px solid var(--layer-active-color);
   border-left-width: 0.3rem;
   border-radius: 0.375rem;
   color: var(--fgColor-default, #1f2328);
   background: var(--bgColor-muted, #f6f8fa);
 }
 
-.document-layer-note strong { color: var(--layer-color); }
+.document-layer-note strong { color: var(--layer-active-color); }
 .layer-body-hidden .markdown-body > :not(.document-layer-note) { display: none; }
 
 @media (max-width: 640px) {
@@ -37,5 +40,9 @@
 
 @media (prefers-color-scheme: dark) {
   .layer-panel { color: #f0f6fc; background: #0d1117; border-color: #30363d; }
-  .document-layer-note { color: #f0f6fc; background: #161b22; }
+  .document-layer-note {
+    --layer-active-color: var(--layer-dark-color);
+    color: #f0f6fc;
+    background: #161b22;
+  }
 }

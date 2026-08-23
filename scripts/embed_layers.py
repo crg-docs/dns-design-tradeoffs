@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 from pathlib import Path
 
 from layer_data import LayerError, load_and_validate
@@ -27,8 +28,16 @@ for document in documents:
     page = output.read_text(encoding="utf-8")
     if "document-layer-data" in page:
         parser.error(f"文章レイヤーは既に埋め込まれています: {output}")
+    design_output = Path(document["documentDesign"]).with_suffix(".html")
+    if not (site_dir / design_output).is_file():
+        parser.error(f"文書設計メモの生成ページが存在しません: {site_dir / design_output}")
+    design_url = Path(os.path.relpath(design_output, Path(document["target"]).parent)).as_posix()
     payload = json.dumps(
-        {"types": types, "entries": document["entries"]},
+        {
+            "types": types,
+            "metadata": {"documentDesign": design_url},
+            "entries": document["entries"],
+        },
         ensure_ascii=False,
         separators=(",", ":"),
     ).replace("</", "<\\/")

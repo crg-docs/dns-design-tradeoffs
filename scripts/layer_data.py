@@ -13,6 +13,7 @@ LAYERS_DIR = ROOT / "_data" / "layers"
 TYPES_FILE = ROOT / "_data" / "layer_types.json"
 REQUIRED_ENTRY_KEYS = {"type", "anchor", "content"}
 ALLOWED_POSITIONS = {"before", "after"}
+COLOR_PATTERN = re.compile(r"#[0-9a-fA-F]{6}")
 
 
 class LayerError(ValueError):
@@ -61,9 +62,14 @@ def load_and_validate() -> tuple[dict, list[dict]]:
             or not isinstance(definition.get("label"), str)
             or not definition["label"]
             or not isinstance(definition.get("color"), str)
-            or not definition["color"]
+            or not COLOR_PATTERN.fullmatch(definition["color"])
+            or not isinstance(definition.get("darkColor"), str)
+            or not COLOR_PATTERN.fullmatch(definition["darkColor"])
         ):
-            errors.append(f"_data/layer_types.json: {name!r}には空でないlabelとcolorを定義してください")
+            errors.append(
+                f"_data/layer_types.json: {name!r}には空でないlabelと"
+                "6桁のcolor、darkColorを定義してください"
+            )
 
     documents: list[dict] = []
     targets: set[str] = set()
@@ -73,12 +79,26 @@ def load_and_validate() -> tuple[dict, list[dict]]:
             if not isinstance(document, dict):
                 raise LayerError(f"{path.relative_to(ROOT)}: ルートはオブジェクトにしてください")
             target = document.get("target")
+            document_design = document.get("documentDesign")
             entries = document.get("entries")
             if not isinstance(target, str) or not target.startswith("chapters/") or not target.endswith(".md"):
                 raise LayerError(f"{path.relative_to(ROOT)}: targetにはchapters/*.mdを指定してください")
             target_path = ROOT / target
             if not target_path.is_file():
                 raise LayerError(f"{path.relative_to(ROOT)}: 対象Markdownが存在しません: {target}")
+            if (
+                not isinstance(document_design, str)
+                or not document_design.startswith("docs/document-design/")
+                or not document_design.endswith(".md")
+            ):
+                raise LayerError(
+                    f"{path.relative_to(ROOT)}: documentDesignには"
+                    "docs/document-design/*.mdを指定してください"
+                )
+            if not (ROOT / document_design).is_file():
+                raise LayerError(
+                    f"{path.relative_to(ROOT)}: 文書設計メモが存在しません: {document_design}"
+                )
             if target in targets:
                 raise LayerError(f"{path.relative_to(ROOT)}: targetが別のレイヤーファイルと重複しています: {target}")
             targets.add(target)
@@ -108,7 +128,14 @@ def load_and_validate() -> tuple[dict, list[dict]]:
                 count = contextual_match_count(source, entry)
                 if count != 1:
                     errors.append(f"{label}: anchorの一致数は1件でなければなりません（実際: {count}件）")
-            documents.append({"path": path, "target": target, "entries": entries})
+            documents.append(
+                {
+                    "path": path,
+                    "target": target,
+                    "documentDesign": document_design,
+                    "entries": entries,
+                }
+            )
         except LayerError as error:
             errors.append(str(error))
     if errors:

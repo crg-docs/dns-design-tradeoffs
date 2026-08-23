@@ -1,0 +1,16 @@
+{
+  "target": "chapters/01-name-resolution.md",
+  "documentDesign": "docs/document-design/01-name-resolution.md",
+  "entries": [
+    {
+      "type": "idea",
+      "anchor": "いずれも何かを「分ける」話ですが、分ける対象と解く問題は同じではありません。",
+      "content": "設計メモでは、値の役割、利用時の名前解決、対応情報の管理責任という三つの分離を区別する構成を採用しています。文書全体の判断は設計メモが正本です。"
+    },
+    {
+      "type": "alternative",
+      "anchor": "どのサーバーへどの順序で問い合わせるかは省略しています。",
+      "content": "問い合わせ手順まで準備章で説明する案は、準備章がDNSの概説になり、非機能要件を主軸にするまでの距離が長くなるため見送られました。"
+    }
+  ]
+}
