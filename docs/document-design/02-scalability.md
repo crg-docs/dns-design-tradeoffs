@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # 第2章「拡張性――集中管理を分割する」の設計メモ
 
 - 対象文書: [`chapters/02-scalability.md`](../../chapters/02-scalability.md)

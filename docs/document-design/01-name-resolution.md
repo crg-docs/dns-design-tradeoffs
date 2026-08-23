@@ -1,3 +1,7 @@
+---
+layout: default
+---
+
 # 準備章「なぜ名前解決が必要なのか」の設計メモ
 
 - 対象文書: [`chapters/01-name-resolution.md`](../../chapters/01-name-resolution.md)

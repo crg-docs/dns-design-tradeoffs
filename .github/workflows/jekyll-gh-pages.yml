@@ -41,6 +41,8 @@ jobs:
           destination: ./_site
       - name: Embed document layers
         run: python3 scripts/embed_layers.py --site-dir _site
+      - name: Test built document layers
+        run: python3 scripts/test_built_layers.py --site-dir _site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
