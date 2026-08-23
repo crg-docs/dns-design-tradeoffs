@@ -1,5 +1,6 @@
 {
   "target": "chapters/02-scalability.md",
+  "documentDesign": "docs/document-design/02-scalability.md",
   "entries": [
     {
       "type": "idea",
