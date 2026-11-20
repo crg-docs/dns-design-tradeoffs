@@ -109,6 +109,6 @@ HTTPS側はHTTPステータス200で、応答の`Question`に`example.com`と型
 
 ---
 
-[← 第6章 セキュリティ](06-security.md)｜[目次](../)｜[第8章の構成 →](../docs/outline.md)
+[← 第6章 セキュリティ](06-security.md)｜[目次](../)｜[第8章 運用性と保守性 →](08-operations.md)
 
 {% include mermaid.html %}
