@@ -13,3 +13,7 @@
   min-width: 680px;
   max-width: none;
 }
+
+.mermaid, .time-figure { overflow-x: auto; }
+.mermaid svg { min-width: 640px; }
+.time-figure svg { min-width: 540px; }
