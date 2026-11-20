@@ -106,7 +106,7 @@ RFC 2308の3・5節は不在応答のTTLに使用します。後続のRFC 9499�
 | 資料 | 本書で裏付ける記述 | 主な箇所・注意 |
 | --- | --- | --- |
 | [RFC 3833: Threat Analysis of the Domain Name System (DNS)](https://www.rfc-editor.org/rfc/rfc3833.html) | DNSに対する脅威を、名前空間、名前サーバー、リゾルバなどの構成要素ごとに整理した分析 | 2004年8月、Informational。対策の仕様ではなく脅威分析として扱う。個別の事件名や対策の普及時期の根拠には使わない |
-| [RFC 4033: DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033.html) | DNSSECの目的、能力、制約、導入要件 | 導入と脅威・非目標。2005年3月、RFC 6014と6840が更新。4章に非目標が明示されており（機密性、アクセス制御、DoS耐性を提供しない）、機密性を提供する仕組みとは書かない |
+| [RFC 4033: DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033.html) | DNSSECの目的、能力、制約、導入要件、TTLと署名期限の違い | 導入と脅威・非目標。2005年3月、RFC 6014と6840が更新。4節の非目標、5節の検証状態、8.1・8.2節の署名の有効期間と保守を使用。TTLを長くして署名期限を延ばせるとは書かない |
 | [RFC 4034: Resource Records for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4034.html) | DNSKEY、RRSIG、NSEC、DSの形式と意味 | レコード形式の根拠。2005年3月。RFC 4470、6014、6840、6944、9077、9824、9905が更新しており、アルゴリズムとNSECの扱いは更新後を確認する |
 | [RFC 4035: Protocol Modifications for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4035.html) | 署名生成、応答、検証、Authenticated Data等のプロトコル動作 | 検証状態と実装役割を一般化しすぎない。2005年3月。RFC 4470、6014、6840、8198、9077、9520、9824が更新している |
 | [RFC 5358: Preventing Use of Recursive Nameservers in Reflector Attacks](https://www.rfc-editor.org/rfc/rfc5358.html) | オープンな再帰サーバーが反射攻撃に利用される問題と、再帰サービスを許可先へ限定する推奨 | BCP 140。権威サービスと再帰サービスを区別する |
@@ -157,21 +157,6 @@ RFC 2308の3・5節は不在応答のTTLに使用します。後続のRFC 9499�
 | [RFC 8914: Extended DNS Errors](https://www.rfc-editor.org/rfc/rfc8914.html) | 応答コードを変えず原因情報を補助する拡張 | 2020年10月。3・6節。全サーバーでの提供や情報の認証を保証しない |
 
 RFC 1912は2.8節の委譲不整合の例を使い、古い製品の設定やタイマーを現在へ転用しません。Split DNSとViewはRFC 9499の6節を参照します。
-
-## 全章初稿時のErrata確認（2026-11-20）
-
-この台帳に本文URLを登録した54本のRFCについて、RFC EditorのErrata検索を再確認し、119件の状態・節番号を[確認記録](observations/errata-index-2026-11-20.json)に保存しました。検索結果の確認に加え、VerifiedのTechnical訂正と、使用箇所に関わる一部の保留・編集上の訂正を本文の主張と照合しています。全RFCの全実装規則を監査したという意味ではありません。Reported、Held for Document Update、RejectedをVerifiedと同じ確定訂正として適用しません。
-
-| 関連箇所 | 照合した訂正 | 本文への判断 |
-| --- | --- | --- |
-| キャッシュ・TTL・SOA | RFC 1035の2130・6601・6463、RFC 1034の4943 | TTLの符号付きという古い記述や、ゾーンとキャッシュの時刻表現を混同しない。本文はTTLのビット実装を説明せず、SOAも一律TTL 0とはしていない |
-| IXFRと動的更新 | RFC 1995の3197、RFC 2136の4469 | 差分転送をRRの途中のバイトだけを送る処理とは記述していない。CNAME競合時の更新疑似コードは扱っていない |
-| DNSSEC | RFC 4033〜4035の3043〜3045、4034の1062・4552、4035の5226 | RFC 3007への誤った更新表記を主張しない。正規化・鍵タグ計算・DS問い合わせの特殊処理は今回の責務外 |
-| 鍵交換 | RFC 6781の4844・5174・6692 | キャッシュ期限と親子の更新が関わるという範囲に限定。訂正前の鍵交換図や手順を転記しない |
-| ADとEDNS | RFC 6840の4924・4927・4928、RFC 6891の3604、保留8348 | ADの明確化を本文に反映済み。EDNSは能力通知として説明し、応答側が要求側の値を単純コピーするという説明はしない |
-| ECS・DoQ・未知の型 | RFC 7871の4735、RFC 9250の7883、RFC 3597の1063 | ECSの詳細なプレフィックス例、DoQのパディング要件、DNSSEC正規化の型一覧は転記していない |
-
-これ以外の訂正についても、状態と該当節を記録しています。実装手順や具体的な数値を追加する改稿では、その節の訂正本文と後続RFCを改めて読みます。
 
 ## 全章初稿時のErrata確認（2026-11-20）
 
