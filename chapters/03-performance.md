@@ -90,7 +90,7 @@ UDPの応答へ必要な情報が収まらない場合もあります。応答�
 
 ## 7. 平均を下げた後に、遅い側が残る
 
-よく使う情報がキャッシュにあれば、多くの問い合わせは短く終わります。それでも期限直後の利用者は、情報の取得を待つ場合があります。**Prefetch（先取り更新）**は、その待ちを減らすための実装上の工夫です。たとえばBIND 9では、期限の近いキャッシュ情報への問い合わせを契機に、権威サーバーへ更新を求める設定があります。これはBINDの実装例であり、すべてのリゾルバが同じ条件で動くという意味ではありません。[BIND 9.20.16 ARM: prefetch](https://bind9.readthedocs.io/en/v9.20.16/reference.html#prefetch)
+よく使う情報がキャッシュにあれば、多くの問い合わせは短く終わります。それでも期限直後の利用者は、情報の取得を待つ場合があります。**Prefetch（先取り更新）**は、その待ちを減らすための実装上の工夫です。たとえばBIND 9では、期限の近いキャッシュ情報への問い合わせを契機に、権威サーバーへ更新を求める設定があります。これはBINDの実装例であり、すべてのリゾルバが同じ条件で動くという意味ではありません。[BIND 9.20.16 ARM: prefetch](https://bind9.readthedocs.io/en/v9.20.16/reference.html#namedconf-statement-prefetch)
 
 先取りは、後の利用者が待たずに済む可能性を買うために、今の問い合わせを増やします。その情報が再び利用されなければ、更新の仕事は利用者の待ち時間削減につながりません。評価には平均応答時間だけでなく、追加の上流問い合わせ数と、期限直後の遅延を含めます。
 
@@ -144,7 +144,7 @@ Resolve-DnsName -Name example.com -Type A -Server 1.1.1.1 -DnsOnly -NoHostsFile
 - [RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 4節、5節
 - [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 4節、6節
 - [RFC 9520: Negative Caching of DNS Resolution Failures](https://www.rfc-editor.org/rfc/rfc9520.html) 概要、3節
-- [BIND 9.20.16 ARM: prefetch](https://bind9.readthedocs.io/en/v9.20.16/reference.html#prefetch) 実装例
+- [BIND 9.20.16 ARM: prefetch](https://bind9.readthedocs.io/en/v9.20.16/reference.html#namedconf-statement-prefetch) 実装例
 - [Microsoft Learn: Resolve-DnsName](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname) 観測コマンドのオプション
 
 ---
