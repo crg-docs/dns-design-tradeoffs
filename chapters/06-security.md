@@ -46,7 +46,7 @@ flowchart TD
 
 ## 4. 検証できない理由を一つにまとめない
 
-DNSSECには、署名を確認できたSecure、署名による保護がないと判断できるInsecure、保護されるはずなのに検証が成立しないBogus、信頼の起点などの情報が足りないIndeterminateという区別があります。「署名がない」と「署名の検証に失敗した」は同じ状態ではありません。[RFC 4033 5節](https://www.rfc-editor.org/rfc/rfc4033.html)
+DNSSECには、信頼の起点からの連鎖と必要な署名を検証できたSecure、署名による保護がないと判断できるInsecure、保護されるはずなのに検証が成立しないBogus、その領域が保護されると判断する信頼の起点を持たないIndeterminateという区別があります。「署名がない」と「署名の検証に失敗した」は同じ状態ではありません。検証途中で必要な情報を取得できない場合を、すべてIndeterminateと呼ぶわけでもありません。[RFC 4033 5節](https://www.rfc-editor.org/rfc/rfc4033.html)
 
 署名を検証する再帰リゾルバへ処理を任せる場合、その結果を端末へどう伝えるかも境界になります。応答のAD（Authentic Data）ビットは検証結果に関わる通知ですが、信頼できない経路で受け取ったビットだけを安全性の根拠にはできません。端末自身で検証するか、委ねるリゾルバと通信経路を信頼できる条件にする必要があります。ADの取り扱いはRFC 4035に加え、RFC 6840で明確化されています。[RFC 4035 4.9.3節](https://www.rfc-editor.org/rfc/rfc4035.html)、[RFC 6840: Clarifications and Implementation Notes for DNS Security (DNSSEC) 5.7・5.8節](https://www.rfc-editor.org/rfc/rfc6840.html)
 
@@ -67,6 +67,10 @@ Transaction Signature（TSIG）は、共有秘密を使ってDNSの取引単位�
 公開の権威サービスでも、応答量の制御が検討対象になります。BINDのResponse Rate Limiting（RRL）は、似たUDP応答の過剰送信を抑える実装例です。ただし制限の単位や設定次第で正当な問い合わせにも影響するため、単に上限を低くするほどよいわけではありません。製品固有の機能と、すべてのサーバーが従う標準仕様を区別します。[BIND 9.20.16: rate-limit](https://bind9.readthedocs.io/en/v9.20.16/reference.html#namedconf-statement-rate-limit)
 
 ## 7. 対策を維持できるかまで評価する
+
+第3章のTTLと、署名を使って検証できる期間は別です。TTLを長くしても署名の有効期間は延びません。アドレスを変更しないゾーンでも、有効な署名を提供し続ける保守が必要になります。[RFC 4033 8.1・8.2節](https://www.rfc-editor.org/rfc/rfc4033.html)
+
+ここから本書が引く設計上の判断は、応答元の複製と署名の保守を一組で評価することです。複製が同じ期限の署名を返しているなら、台数を増やしてもその期限切れを回避できません。応答が返るかだけでなく、利用者が必要とする検証を通るかまでを可用性の条件に含めます。
 
 本章の運用上の整理では、導入時の成功だけでなく、保護が維持される条件を確認します。署名付き応答を一度取得できても、署名更新や鍵の交換が将来成功するとは限りません。親子の鍵情報、署名の有効期間、検証失敗の増加を観測し、変更時に担当者がどの順序で確認するかを決めます。鍵の交換には、古い情報がキャッシュに残る期間も関係します。[RFC 6781 4.1節](https://www.rfc-editor.org/rfc/rfc6781.html)
 
@@ -92,7 +96,7 @@ Transaction Signature（TSIG）は、共有秘密を使ってDNSの取引単位�
 - [RFC 5452: Measures for Making DNS More Resilient against Forged Answers](https://www.rfc-editor.org/rfc/rfc5452.html) 9節
 - [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) Bailiwick
 - [RFC 2181: Clarifications to the DNS Specification](https://www.rfc-editor.org/rfc/rfc2181.html) 5.4.1節
-- [RFC 4033: DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033.html) 4・5節
+- [RFC 4033: DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033.html) 4・5・8節
 - [RFC 4034: Resource Records for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4034.html) 2・3・5節
 - [RFC 4035: Protocol Modifications for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4035.html) 4.9.3・5節
 - [RFC 6840: Clarifications and Implementation Notes for DNS Security (DNSSEC)](https://www.rfc-editor.org/rfc/rfc6840.html) 5.7・5.8節
