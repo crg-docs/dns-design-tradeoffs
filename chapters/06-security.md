@@ -48,7 +48,7 @@ flowchart TD
 
 DNSSECには、信頼の起点からの連鎖と必要な署名を検証できたSecure、署名による保護がないと判断できるInsecure、保護されるはずなのに検証が成立しないBogus、その領域が保護されると判断する信頼の起点を持たないIndeterminateという区別があります。「署名がない」と「署名の検証に失敗した」は同じ状態ではありません。検証途中で必要な情報を取得できない場合を、すべてIndeterminateと呼ぶわけでもありません。[RFC 4033 5節](https://www.rfc-editor.org/rfc/rfc4033.html)
 
-署名を検証する再帰リゾルバへ処理を任せる場合、その結果を端末へどう伝えるかも境界になります。応答のAD（Authentic Data）ビットは検証結果に関わる通知ですが、信頼できない経路で受け取ったビットだけを安全性の根拠にはできません。端末自身で検証するか、委ねるリゾルバと通信経路を信頼できる条件にする必要があります。ADの取り扱いはRFC 4035に加え、RFC 6840で明確化されています。[RFC 4035 4.9.3節](https://www.rfc-editor.org/rfc/rfc4035.html)、[RFC 6840: Clarifications and Implementation Notes for DNS Security (DNSSEC) 5.7・5.8節](https://www.rfc-editor.org/rfc/rfc6840.html)
+署名を検証する再帰リゾルバへ処理を任せる場合、その結果を端末へどう伝えるかも境界になります。応答のAD（Authenticated Data）ビットは検証結果に関わる通知ですが、信頼できない経路で受け取ったビットだけを安全性の根拠にはできません。端末自身で検証するか、委ねるリゾルバと通信経路を信頼できる条件にする必要があります。ADの取り扱いはRFC 4035に加え、RFC 6840で明確化されています。[RFC 4035 4.9.3節](https://www.rfc-editor.org/rfc/rfc4035.html)、[RFC 6840: Clarifications and Implementation Notes for DNS Security (DNSSEC) 5.7・5.8節](https://www.rfc-editor.org/rfc/rfc6840.html)
 
 検証を必須にする経路では、署名の期限切れや親子の鍵情報の不整合が、利用者にとって名前解決の失敗になります。偽造を受け入れない効果と、署名運用の失敗でも応答を利用できなくなる代償が対になっています。失敗を見たら検証を無効にする、という運用では、保護したかった要件を失います。署名、鍵、時刻、親の情報のどこで連鎖が切れたかを調べる準備が必要です。[RFC 6781: DNSSEC Operational Practices, Version 2 4節](https://www.rfc-editor.org/rfc/rfc6781.html)
 
