@@ -40,6 +40,9 @@ jobs:
         with:
           source: ./
           destination: ./_site
+      - name: Allow post-build updates
+        # The Docker action writes files as root; the runner embeds layers next.
+        run: sudo chown -R "$(id -u):$(id -g)" _site
       - name: Embed document layers
         run: python3 scripts/embed_layers.py --site-dir _site
       - name: Test built document layers
