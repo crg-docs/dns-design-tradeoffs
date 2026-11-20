@@ -8,8 +8,8 @@ DNS（Domain Name System）という実在する大規模分散システムを�
 
 - [第0章 DNSはなぜ複雑に見えるのか](chapters/00-introduction.md)
 - [第1章 見取り図――DNSは何を、いつ、なぜ足してきたか](chapters/01-timeline.md)
-- [準備章 なぜ名前解決が必要なのか](chapters/01-name-resolution.md)（本文初稿、判定前）
-- [第2章 拡張性――集中管理を分割する](chapters/02-scalability.md)（本文初稿、判定前）
+- [準備章 なぜ名前解決が必要なのか](chapters/01-name-resolution.md)
+- [第2章 拡張性――集中管理を分割する](chapters/02-scalability.md)
 - [第3章 性能――問い合わせ経路と再利用を設計する](chapters/03-performance.md)
 
 現在は第0〜3章と準備章を公開しながら加筆しています。第4章以降は、構成と出典を確認し、章ごとに執筆・検証して追加します。
