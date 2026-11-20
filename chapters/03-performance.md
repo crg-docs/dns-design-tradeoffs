@@ -151,6 +151,6 @@ Resolve-DnsName -Name example.com -Type A -Server 1.1.1.1 -DnsOnly -NoHostsFile
 
 ---
 
-[← 第2章 拡張性](02-scalability.md)｜[目次](../)｜[次の章 可用性と障害耐性 →](../docs/outline.md#第4章-可用性と障害耐性どの障害でも応答を続けるのか)
+[← 第2章 拡張性](02-scalability.md)｜[目次](../)｜[次の章 可用性と障害耐性 →](04-availability.md)
 
 {% include mermaid.html %}

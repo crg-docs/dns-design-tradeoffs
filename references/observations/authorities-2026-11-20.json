@@ -1,0 +1,48 @@
+{
+  "purpose": "Observe responses from two named authoritative endpoints; not a fault injection test",
+  "vantage": "Author Windows workstation; geographic location and server physical placement not determined",
+  "started_utc": "2026-11-20T12:04:23.4187708+00:00",
+  "name": "iana.org",
+  "discovery_server": "1.1.1.1",
+  "names": [
+    "a.iana-servers.net",
+    "b.iana-servers.net",
+    "c.iana-servers.net",
+    "ns.icann.org"
+  ],
+  "discovery_command": "Resolve-DnsName -Name iana.org -Type NS -Server 1.1.1.1 -DnsOnly -NoHostsFile",
+  "query_template": "Resolve-DnsName -Name iana.org -Type SOA -Server <server> -DnsOnly -NoHostsFile -NoRecursion",
+  "powershell_version": "7.6.9",
+  "results": [
+    {
+      "server": "a.iana-servers.net",
+      "started_jst": "2026-11-20T21:04:26.2868714+09:00",
+      "status": "answered",
+      "soa": [
+        {
+          "Name": "iana.org",
+          "PrimaryServer": "sns.dns.icann.org",
+          "SerialNumber": 2026110902,
+          "TimeToZoneRefresh": 7200,
+          "TimeToZoneFailureRetry": 3600,
+          "TimeToExpiration": 1209600
+        }
+      ]
+    },
+    {
+      "server": "b.iana-servers.net",
+      "started_jst": "2026-11-20T21:04:26.5009466+09:00",
+      "status": "answered",
+      "soa": [
+        {
+          "Name": "iana.org",
+          "PrimaryServer": "sns.dns.icann.org",
+          "SerialNumber": 2026110902,
+          "TimeToZoneRefresh": 7200,
+          "TimeToZoneFailureRetry": 3600,
+          "TimeToExpiration": 1209600
+        }
+      ]
+    }
+  ]
+}
