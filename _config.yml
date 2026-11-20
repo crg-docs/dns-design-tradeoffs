@@ -1,4 +1,10 @@
 title: DNSで学ぶ非機能要件
 description: 「DNS」と言わずに説明する。DNSという実在する大規模分散システムを題材に、非機能要件を設計判断へ変換する過程を学ぶ技術読み物
 lang: ja
+url: https://crg-docs.github.io
+baseurl: /dns-design-tradeoffs
 theme: jekyll-theme-primer
+
+exclude:
+  - AGENTS.md
+  - scripts

@@ -61,7 +61,17 @@ DNSが名前解決そのものを発明したわけではありません。1973�
 
 DNSがこの段階で中心的に解こうとしたのは、名前を人に覚えさせる問題でも、名前とアドレスを初めて別の値にすることでもありません。前節の三つ目、すなわち**名前に対応する情報を、一つの組織と一つの一覧へ集めずに管理し、必要な情報を参照できるようにすること**でした。
 
-そのために、名前空間を階層化し、範囲ごとに管理責任を委ねる設計が採用されました。ここで初めて、名前空間と管理責任を範囲に分ける話が現れます。第1節の「二種類の値を分ける」と、この「管理する範囲を分ける」を同じ分離だと捉えないことが重要です。具体的に何を境界として分けるのかは、第2章で扱います。
+そのために、名前空間を階層化し、範囲ごとに管理責任を委ねる設計が採用されました。ここで初めて、名前空間と管理責任を範囲に分ける話が現れます。第1節の「二種類の値を分ける」と、この「管理する範囲を分ける」は、分ける対象が異なります。
+
+### 名前の範囲と管理する範囲
+
+名前を階層として並べた全体を**名前空間**と呼びます。その中で、ある名前を根とする部分木が**ドメイン**です。たとえば `example.jp` ドメインには、`www.example.jp` も `api.dev.example.jp` も含まれます。
+
+一方、権威情報を管理する単位が**ゾーン**です。`example.jp` の管理側が `dev.example.jp` 以下を別のゾーンへ任せると、名前の階層はそのままでも、管理する範囲に境界ができます。このように子ゾーンへ権威を渡し、親にその参照先を置くことを**委譲**と呼びます。`dev.example.jp` 以下は `example.jp` ドメインに含まれ続けますが、親ゾーンの管理範囲からは外れます。[RFC 1034: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034.html) 3.1節、4.2節
+
+ここでいう**権威情報**は、そのゾーンの責任のもとで提供される情報です。それを保持して問い合わせに答えるのが**権威サーバー**で、別のサーバーから得た応答を一時保存するキャッシュとは役割が違います。「権威」は情報の出所と責任を表し、登録内容に誤りがないことを保証する言葉ではありません。[RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 6節、7節
+
+名前の階層と管理の境界を区別できれば、第2章の準備は整います。そこで図を使って境界を確かめ、委譲によって誰の仕事が減り、どの調整が増えるのかを評価します。
 
 ## 5. 最初の目的と、後から広がった用途を分ける
 
@@ -91,7 +101,8 @@ DNSがこの段階で中心的に解こうとしたのは、名前を人に覚�
 - [RFC 608: Host Names On-Line](https://www.rfc-editor.org/rfc/rfc608.html)
 - [RFC 1738: Uniform Resource Locators (URL)](https://www.rfc-editor.org/rfc/rfc1738.html)
 - [RFC 882: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc882.html)
-- [RFC 1034: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034.html) 2.1節
+- [RFC 1034: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034.html) 2.1節、3.1節、4.2節
+- [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 2節、6節、7節
 - [RFC 1794: DNS Support for Load Balancing](https://www.rfc-editor.org/rfc/rfc1794.html)
 
 ---
