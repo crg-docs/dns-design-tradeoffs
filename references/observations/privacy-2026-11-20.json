@@ -1,0 +1,59 @@
+{
+  "vantage": "Windows; one client; no OS resolver settings changed",
+  "query_name": "example.com",
+  "plain": {
+    "at_utc": "2026-11-20T12:24:10.3511116+00:00",
+    "server": "1.1.1.1",
+    "answers": [
+      {
+        "Name": "example.com",
+        "Type": 1,
+        "TTL": 102,
+        "IPAddress": "172.66.147.243"
+      },
+      {
+        "Name": "example.com",
+        "Type": 1,
+        "TTL": 102,
+        "IPAddress": "104.20.23.154"
+      }
+    ],
+    "command": "Resolve-DnsName -Name example.com -Type A -Server 1.1.1.1 -DnsOnly"
+  },
+  "https_json": {
+    "response": {
+      "Status": 0,
+      "TC": false,
+      "RD": true,
+      "RA": true,
+      "AD": true,
+      "CD": false,
+      "Question": [
+        {
+          "name": "example.com",
+          "type": 1
+        }
+      ],
+      "Answer": [
+        {
+          "name": "example.com",
+          "type": 1,
+          "TTL": 46,
+          "data": "104.20.23.154"
+        },
+        {
+          "name": "example.com",
+          "type": 1,
+          "TTL": 46,
+          "data": "172.66.147.243"
+        }
+      ]
+    },
+    "accept": "application/dns-json",
+    "content_type": "application/dns-json",
+    "at_utc": "2026-11-20T12:24:13.0687658+00:00",
+    "uri": "https://cloudflare-dns.com/dns-query?name=example.com&type=A",
+    "status_code": 200
+  },
+  "limits": "Provider JSON API, not RFC 8484 wire-format observation. No packet capture, upstream tracing, location comparison, or logging-policy verification."
+}

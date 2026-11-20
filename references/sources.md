@@ -113,6 +113,14 @@ RFC 2308の3・5節は不在応答のTTLに使用します。後続のRFC 9499�
 
 ## プライバシー
 
+2026-11-20、第7章で保護区間と観測者を分けて参照しました。事業者のログ保持を外部から検証したとは扱いません。
+
+| 追加資料 | 本書で裏付ける記述 | 注意 |
+| --- | --- | --- |
+| [RFC 9076: DNS Privacy Considerations](https://www.rfc-editor.org/rfc/rfc9076.html) | 公開データと問い合わせ履歴の区別、観測者と集中の問題 | 2021年7月、Informational、RFC 7626を廃止。1・4・6節。対策を規定する文書ではない |
+| [RFC 8310: Usage Profiles for DNS over TLS and DNS over DTLS](https://www.rfc-editor.org/rfc/rfc8310.html) | 認証と保護を必須にする場合、可能な場合に使う場合の違い | 2018年3月、RFC 7858を更新。5・6・11.1節 |
+| [Cloudflare: Using JSON](https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/) | 実観測に使うHTTPS JSON API | JSONは標準のRFC 8484ワイヤー形式とは異なる。提供元自身が共通RFCの不在を明示 |
+
 | 資料 | 本書で裏付ける記述 | 主な箇所・注意 |
 | --- | --- | --- |
 | [RFC 7858: Specification for DNS over Transport Layer Security (TLS)](https://www.rfc-editor.org/rfc/rfc7858.html) | DoTの接続、認証、プライバシーに関する設計 | 後続の運用・プロファイル文書も確認する |

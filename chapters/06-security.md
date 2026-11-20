@@ -103,6 +103,6 @@ Transaction Signature（TSIG）は、共有秘密を使ってDNSの取引単位�
 
 ---
 
-[← 第5章 整合性と変更反映](05-consistency.md)｜[目次](../)｜[第7章の構成 →](../docs/outline.md)
+[← 第5章 整合性と変更反映](05-consistency.md)｜[目次](../)｜[第7章 プライバシー →](07-privacy.md)
 
 {% include mermaid.html %}
