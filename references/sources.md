@@ -141,6 +141,17 @@ RFC 2308の3・5節は不在応答のTTLに使用します。後続のRFC 9499�
 | [RFC 882: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc882.html) | 従来方式の制約と、階層化・分散管理が解決しようとした問題 | 実読済み（2026-08-05）。1983年11月、RFC 973が更新し、RFC 1034/1035により廃止。表の大きさと更新頻度が管理可能な限界に近いという記述を第2章で参照する |
 | [RFC 883: Domain Names—Implementation and Specification](https://www.rfc-editor.org/rfc/rfc883.html) | 初期DNSが導入した運用上の役割とトレードオフ | 実読済み（2026-08-05）。1983年11月、RFC 973が更新し、RFC 1034/1035により廃止。第2章の責任分割は概念を定めるRFC 882と後継のRFC 1034で裏付け、実装詳細を扱う場合に参照する |
 
+## 運用性と拡張時の診断
+
+2026-11-20、第8章で使用する箇所を確認しました。運用フローの提案と規格の要求を分けて記述します。
+
+| 資料 | 本書で裏付ける記述 | 注意 |
+| --- | --- | --- |
+| [RFC 8906: A Common Operational Problem in DNS Servers: Failure to Communicate](https://www.rfc-editor.org/rfc/rfc8906.html) | 不応答や不適切な応答が運用と拡張を妨げる問題 | 2020年9月、BCP 231。データ内容の正しさの検査とは区別 |
+| [RFC 8914: Extended DNS Errors](https://www.rfc-editor.org/rfc/rfc8914.html) | 応答コードを変えず原因情報を補助する拡張 | 2020年10月。3・6節。全サーバーでの提供や情報の認証を保証しない |
+
+RFC 1912は2.8節の委譲不整合の例を使い、古い製品の設定やタイマーを現在へ転用しません。Split DNSとViewはRFC 9499の6節を参照します。
+
 ## 出典管理上の未解決事項
 
 - HOSTS.TXT以前の名前解決を説明する同時代資料は追加済み（RFC 606、2026-08-05）。抽出結果は [HOSTS.TXT期の一次資料からの抽出](hosts-txt-findings.md) にある。未読で残しているのは RFC 597（RFC 606が参照する公式ホスト名一覧）、RFC 881・897（RFC 921の前身のスケジュール）、RFC 920（新ドメインの登録要件）。
