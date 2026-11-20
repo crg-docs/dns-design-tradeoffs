@@ -1,0 +1,71 @@
+{
+  "purpose": "Observe returned TTLs, not benchmark resolver performance",
+  "vantage": "Author Windows workstation; geographic location and resolver backend not determined",
+  "powershell_version": "7.6.9",
+  "command": "Resolve-DnsName -Name example.com -Type A -Server 1.1.1.1 -DnsOnly -NoHostsFile",
+  "query_count": 3,
+  "interval_after_response_seconds": 2,
+  "cache_flush_performed": false,
+  "samples": [
+    {
+      "sample": 1,
+      "started_utc": "2026-11-20T11:54:51.7355445+00:00",
+      "started_jst": "2026-11-20T20:54:51.7355445+09:00",
+      "elapsed_ms": 3457.55,
+      "answers": [
+        {
+          "name": "example.com",
+          "type": "A",
+          "ttl_seconds": 27,
+          "address": "172.66.147.243"
+        },
+        {
+          "name": "example.com",
+          "type": "A",
+          "ttl_seconds": 27,
+          "address": "104.20.23.154"
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "started_utc": "2026-11-20T11:54:57.3530815+00:00",
+      "started_jst": "2026-11-20T20:54:57.3530815+09:00",
+      "elapsed_ms": 19.543,
+      "answers": [
+        {
+          "name": "example.com",
+          "type": "A",
+          "ttl_seconds": 28,
+          "address": "172.66.147.243"
+        },
+        {
+          "name": "example.com",
+          "type": "A",
+          "ttl_seconds": 28,
+          "address": "104.20.23.154"
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "started_utc": "2026-11-20T11:54:59.3787960+00:00",
+      "started_jst": "2026-11-20T20:54:59.3787960+09:00",
+      "elapsed_ms": 20.64,
+      "answers": [
+        {
+          "name": "example.com",
+          "type": "A",
+          "ttl_seconds": 126,
+          "address": "172.66.147.243"
+        },
+        {
+          "name": "example.com",
+          "type": "A",
+          "ttl_seconds": 126,
+          "address": "104.20.23.154"
+        }
+      ]
+    }
+  ]
+}
