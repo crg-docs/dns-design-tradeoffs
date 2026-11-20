@@ -6,5 +6,4 @@ baseurl: /dns-design-tradeoffs
 theme: jekyll-theme-primer
 
 exclude:
-  - AGENTS.md
   - scripts
