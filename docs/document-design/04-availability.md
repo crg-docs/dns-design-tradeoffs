@@ -5,7 +5,7 @@ layout: default
 # 第4章「可用性と障害耐性」の設計メモ
 
 - 対象文書: [`chapters/04-availability.md`](../../chapters/04-availability.md)
-- 状態: 執筆中
+- 状態: 本文・図・実観測を作成、公開ビルド検証中
 - 記録種別: 執筆時の記録
 - 最終更新: 2026-11-20
 

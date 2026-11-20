@@ -62,6 +62,17 @@
 
 ## 可用性と障害耐性
 
+非RFC資料は、運用主体・管理主体が自ら公表した構成説明、仕様、障害報告を一次資料として採用します。製品資料はそのサービスの確認日時点の挙動に限定し、広告的な可用性の評価や他製品との優劣の根拠にはしません。障害報告は発生日と公開日を区別します。URLが失効した場合は、同じ発行主体の移転先か当時の保存版を確認し、本文を確認できなければ根拠未確認へ戻します。数値比較には測定条件がある資料を必要とします。
+
+2026-11-20、第4章で使う次の3本の非RFC資料とRFC 2182を確認しました。
+
+| 追加資料 | 本書で裏付ける記述 | 適用範囲 |
+| --- | --- | --- |
+| [RFC 2182: Selection and Operation of Secondary DNS Servers](https://www.rfc-editor.org/rfc/rfc2182.html) | 複製の物理配置とネットワーク上の配置を共に評価すること | 1997年7月、BCP 16。3節、4節。台数だけで可用性を評価しない根拠 |
+| [IANA: Root Name Servers](https://www.iana.org/domains/root/servers) | サーバー名の一覧と多数の物理的な設備を区別すること | 管理主体の公式一覧。台数・拠点数を固定的な値として本文へ持ち込まない |
+| [Cloudflare DNS: Zone transfers](https://developers.cloudflare.com/dns/zone-setups/zone-transfers/) | 異なる事業者間でPrimary/SecondaryとAXFR/IXFRによる同期を構成する実装例 | 当該サービスの構成例。すべての独自機能が相互運用するという根拠にはしない |
+| [Cloudflare: Cloudflare outage on July 17, 2020](https://blog.cloudflare.com/cloudflare-outage-on-july-17-2020/) | 共通のバックボーン設定の誤りが複数拠点へ影響したこと | 2020-07-17発生、2020-07-18公開の当事者報告。全拠点障害やDNS全体の停止へ一般化しない |
+
 | 資料 | 本書で裏付ける記述 | 主な箇所・注意 |
 | --- | --- | --- |
 | [RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) | 権威サーバーへ到達できないとき、期限切れのキャッシュデータを返して応答を継続する設計。第0章の「障害中に古い情報を返す判断」の裏付け | 2020年、Proposed Standard。RFC 1034/1035/2181を更新し、TTL満了後のデータ利用を例外的な状況に限って認める。可用性と最新性を交換する選択として扱い、常時の挙動と混同しない。滞留時間の上限値や推奨タイマーを本文へ引く場合は TODO: 要検証 |
