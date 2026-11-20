@@ -144,6 +144,6 @@ node scripts/observe_change.cjs <CoreDNS実行ファイルのパス> .review/cha
 
 ---
 
-[← 第4章 可用性と障害耐性](04-availability.md)｜[目次](../)｜[第6章の構成 →](../docs/outline.md)
+[← 第4章 可用性と障害耐性](04-availability.md)｜[目次](../)｜[第6章 セキュリティ →](06-security.md)
 
 {% include mermaid.html %}

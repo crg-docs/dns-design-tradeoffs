@@ -94,6 +94,15 @@ RFC 2308の3・5節は不在応答のTTLに使用します。後続のRFC 9499�
 
 ## セキュリティ
 
+第6章では2026-11-20に使用箇所を確認しました。RFC 4033〜4035の基本的な信頼モデルに範囲を絞り、具体的な署名アルゴリズム、鍵長、NSECの実装手順は推奨しません。BailiwickはRFC 9499の7節に従って歴史的用語として扱います。
+
+| 追加資料 | 本書で裏付ける記述 | 注意 |
+| --- | --- | --- |
+| [RFC 6840: Clarifications and Implementation Notes for DNS Security (DNSSEC)](https://www.rfc-editor.org/rfc/rfc6840.html) | ADビットの問い合わせ・応答での意味 | 2013年2月。RFC 4033〜4035・5155を更新。5.7・5.8節 |
+| [RFC 6781: DNSSEC Operational Practices, Version 2](https://www.rfc-editor.org/rfc/rfc6781.html) | 鍵交換とキャッシュの時間的依存 | 2012年12月、Informational、RFC 4641を廃止。4節。過去のアルゴリズム推奨を現在へ転用しない |
+| [RFC 8945: Secret Key Transaction Authentication for DNS (TSIG)](https://www.rfc-editor.org/rfc/rfc8945.html) | 共有秘密による取引の認証と鍵配布の前提 | 2020年11月、STD 93。RFC 2845・4635を廃止。暗号化・認可範囲の決定とは区別 |
+| [BIND 9.20.16: rate-limit](https://bind9.readthedocs.io/en/v9.20.16/reference.html#namedconf-statement-rate-limit) | UDP応答の制限による反射・増幅への対処例 | 製品固有のRRL。正当な問い合わせへの影響も評価対象 |
+
 | 資料 | 本書で裏付ける記述 | 主な箇所・注意 |
 | --- | --- | --- |
 | [RFC 3833: Threat Analysis of the Domain Name System (DNS)](https://www.rfc-editor.org/rfc/rfc3833.html) | DNSに対する脅威を、名前空間、名前サーバー、リゾルバなどの構成要素ごとに整理した分析 | 2004年8月、Informational。対策の仕様ではなく脅威分析として扱う。個別の事件名や対策の普及時期の根拠には使わない |
