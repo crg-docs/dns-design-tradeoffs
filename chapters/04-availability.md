@@ -57,3 +57,83 @@ RFC 2182は、Secondaryの選択で物理的な場所とネットワーク上の
 共通原因は機器や回線に限りません。正しく動くサーバーへ同じ誤ったデータを配れば、複製は誤りも広めます。すべてを変更できる一つの管理アカウントや、一度に全拠点へ配る設定変更も、影響を共有する経路になります。冗長化の評価には、変更の範囲と戻す手段を含めます。
 
 運用当事者の報告にも、この区別が現れます。Cloudflareは2020年7月17日の障害について、バックボーンのルーター設定の誤りが、そこへ接続する複数の拠点に影響したと報告しています。全拠点が止まったという報告ではありません。この事例から本書が引く論点は、複数の場所に設備があっても、共通の経路や変更を通じて影響が広がるということです。[Cloudflare: Cloudflare outage on July 17, 2020](https://blog.cloudflare.com/cloudflare-outage-on-july-17-2020/)
+
+## 5. Anycastは、同じ宛先を複数の場所で提供する
+
+応答元を分ける方法は、異なるアドレスを列挙するだけではありません。**Anycast**では、同じアドレスへの経路を複数の場所から提供し、ネットワークの経路選択によって到達先を分けます。利用者側が物理拠点を一つずつ選ぶのではなく、経路の側が到達先を決める設計です。権威サーバーへの適用はRFC 3258、運用上の考慮事項はRFC 4786に記されています。[RFC 3258: Distributing Authoritative Name Servers via Shared Unicast Addresses](https://www.rfc-editor.org/rfc/rfc3258.html)、[RFC 4786: Operation of Anycast Services](https://www.rfc-editor.org/rfc/rfc4786.html) 3節、4節
+
+これにより、一つの名前やアドレスで複数の設備を提供できます。しかし「いつでも地理的に一番近い拠点へ届く」「一拠点の故障が即座に隠れる」とまではいえません。経路選択の条件、サービスの異常をどう検出して経路へ反映するか、経路の変化にかかる時間が関係します。サーバープロセスが止まっても経路を提供し続ければ、そこへ届く利用者の失敗は残ります。
+
+IANAの公式一覧も、ルートの権威サーバー名と、各地に置かれた多数のサーバーを区別しています。したがって、NSレコードに現れる名前の数を物理的な台数と読むことはできません。名前、アドレス、拠点、運用主体は、異なる数え方です。[IANA: Root Name Servers](https://www.iana.org/domains/root/servers)
+
+複数リージョンを使う場合も同じです。別の場所に置くことで分かれる依存先と、設定配布や管理機能など共有したままの依存先を列挙します。Anycastや複数リージョンは、障害条件に対して選ぶ仕組みであり、それ自体が可用性の達成を証明するラベルではありません。
+
+## 6. 古い答えで応答を続けるという選択
+
+第3章のキャッシュは、通常の再利用期限の間、上流へ問い合わせずに答える機会を作りました。上流が使えなくなっても、期限内の情報が手元にあれば、その範囲の問い合わせは影響を受けずに済む場合があります。しかし、初めて調べる名前や、必要な情報が残っていない場合には、この助けはありません。
+
+**Serve Stale**は、情報を更新できないときに、期限を過ぎたデータも使って応答の継続を図る仕組みです。RFC 8767は、TTLが満了した後もデータを保持できるよう従来の定義を更新しています。通常のキャッシュ期限と、障害対応のため期限後に保持する期間を区別しなければなりません。[RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 4節
+
+同RFCの実装例では、利用者へ返すまで待つ時間、解決処理を続ける時間、失敗した相手を再確認する間隔、期限切れデータを保持する上限が分かれています。利用者へ古い情報を返した後も更新を試す場合があり、「応答を返した」と「最新の情報を取り直せた」は別の時点です。これは一つの実装例であり、全リゾルバが同一のタイマーで動くという規定ではありません。[RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 5節、6節
+
+可用性の評価では、応答を返せた割合だけでなく、古い情報が利用者にどの影響を与えるかを見ます。アドレスが以前と同じなら利用を継続できても、すでに接続先が廃止されていれば、名前解決の応答が返るだけでは目的を果たしません。古い情報を使う設計は「正しさを不要にした」のではなく、最新性の保証を弱めることで応答を続ける判断です。
+
+また、使える古い情報がキャッシュにない場合には生成できません。上流が復旧したことを検知できなければ、古い情報を使う期間も延びます。応答継続を導入するときは、更新失敗を見失わない観測と、復旧後に通常の更新へ戻ったことの確認を組み合わせます。
+
+## 7. 二つの応答元を観測してみる
+
+2026年11月20日、著者のWindows作業端末で、`iana.org` のNSレコードを `1.1.1.1` へ問い合わせました。返された四つのサーバー名のうち、名前順の先頭二つへSOAレコードを直接問い合わせています。地理的な観測地点と、各サーバー名の背後の物理拠点は特定していません。障害の注入や設定変更は行っていません。
+
+```powershell
+Resolve-DnsName -Name iana.org -Type NS -Server 1.1.1.1 -DnsOnly -NoHostsFile
+Resolve-DnsName -Name iana.org -Type SOA -Server a.iana-servers.net -DnsOnly -NoHostsFile -NoRecursion
+Resolve-DnsName -Name iana.org -Type SOA -Server b.iana-servers.net -DnsOnly -NoHostsFile -NoRecursion
+```
+
+| 問い合わせ開始時刻（日本時間） | 問い合わせ先 | 結果 | SOAのSerial |
+| --- | --- | --- | --- |
+| 2026-11-20 21:04:26.286 | a.iana-servers.net | 応答あり | 2026110902 |
+| 2026-11-20 21:04:26.500 | b.iana-servers.net | 応答あり | 2026110902 |
+
+Serialは、ゾーンの版を比較するための値です。この観測では二つの名前で指定した応答元から、同じ値が返りました。生データには更新確認、再試行、失効までの時間を表すSOAの値も残しています。[観測の生データ](../references/observations/authorities-2026-11-20.json)
+
+ただし、この結果が証明するのは、その時点のその観測地点から、二つの問い合わせへ応答があったことまでです。一方を停止させたときにも利用者が解決できること、両者が異なる電源や回線を使うこと、ゾーン内の全データが同じことは証明していません。同じSerialが返ったことも、データ全体を比較したこととは区別します。
+
+正常時の一覧と障害時の能力を混同しないことが、この観測の読みどころです。障害耐性を確かめるには、自分で管理する検証環境で一つの依存先を外し、別の応答元を使えるか、利用者が何秒待つか、復旧後にデータが揃うかを測る必要があります。第三者の公開サービスへ、その実験を勝手に行うことはしません。
+
+## 8. 応答経路と復旧経路を別々に設計する
+
+この章の考え方は、アプリケーションサーバーやデータベースの複製にも持ち帰れます。まず、読む処理と更新する処理の依存先を分けます。次に、一つの故障で同時に失う範囲を調べます。最後に、残ったコピーをいつまで、どんな条件で使えるかを決めます。
+
+ただしDNSの応答継続を、あらゆる更新処理へそのまま移すことはできません。以前の情報を返すだけでよい処理と、重複してはいけない決済や在庫更新では、失敗時に守る条件が違います。複製を置けば自動的に正しい更新が続く、とは考えません。
+
+運用時には、利用者から見た解決の成否、個々の権威サーバーへの到達性、複製の更新状態を分けて監視します。キャッシュで応答できている間に、更新経路だけが壊れている可能性もあります。応答が戻った後も、滞留していた変更と古いコピーの扱いを確認します。可用性は復旧の瞬間の緑色の表示だけでなく、どの情報でサービスを続け、その後どう通常状態へ戻したかまで含めて評価します。
+
+## この章の言い換え
+
+| 前 | 後 |
+| --- | --- |
+| 「DNSを二台にしたから止まらない」 | 「一台の停止に加え、回線、設定配布、管理権限など同時に失う依存先を確認する」 |
+| 「DNSのPrimaryが落ちた」 | 「更新元へ到達できないが、複製側の到達性、保持データ、更新できない期間を分けて確認する」 |
+| 「DNSは応答しているから復旧した」 | 「応答が返ることと、古い情報から更新できたことを別々に確認する」 |
+
+## 参照資料
+
+- [RFC 1034: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034.html) 4.3.5節
+- [RFC 1995: Incremental Zone Transfer in DNS](https://www.rfc-editor.org/rfc/rfc1995.html) 1節、2節
+- [RFC 1996: A Mechanism for Prompt Notification of Zone Changes](https://www.rfc-editor.org/rfc/rfc1996.html) 1節
+- [RFC 2182: Selection and Operation of Secondary DNS Servers](https://www.rfc-editor.org/rfc/rfc2182.html) 3節、4節
+- [RFC 3258: Distributing Authoritative Name Servers via Shared Unicast Addresses](https://www.rfc-editor.org/rfc/rfc3258.html)
+- [RFC 4786: Operation of Anycast Services](https://www.rfc-editor.org/rfc/rfc4786.html) 3節、4節
+- [RFC 5936: DNS Zone Transfer Protocol (AXFR)](https://www.rfc-editor.org/rfc/rfc5936.html) 概要
+- [RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 4〜6節
+- [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 6節
+- [IANA: Root Name Servers](https://www.iana.org/domains/root/servers)
+- [Cloudflare DNS: Zone transfers](https://developers.cloudflare.com/dns/zone-setups/zone-transfers/)
+- [Cloudflare: Cloudflare outage on July 17, 2020](https://blog.cloudflare.com/cloudflare-outage-on-july-17-2020/)
+
+---
+
+[← 第3章 性能](03-performance.md)｜[目次](../)｜[次の章 整合性と変更反映 →](../docs/outline.md#第5章-整合性と変更反映コピーはいつ同じになるのか)
+
+{% include mermaid.html %}
