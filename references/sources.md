@@ -2,6 +2,30 @@
 
 一次資料を中心に、「どの要件について、どの問題・設計・制約を確認する資料か」を記録する。RFCの状態、更新関係、参照箇所は本文執筆時にも再確認する。同じ資料は複数の要件に関係し得るが、未確認の対応は推測で追加しない。
 
+## 年表の仕様年と追加された役割
+
+2026-11-20に以下のRFC本文の表題、発行年月、概要を確認しました。ここで裏付けるのは文書の公表と記述内容であり、普及時期ではありません。後続章で現在の規定を使う際は、更新RFCとErrataを節ごとに確認します。
+
+| 資料 | 本書で裏付ける記述 | 主な箇所・注意 |
+| --- | --- | --- |
+| [RFC 1183: New DNS RR Definitions](https://www.rfc-editor.org/rfc/rfc1183.html) | 1990年にもレコード型の追加が検討されたこと | 1990年10月。実験目的の型の定義であり、全てが普及したとはしない |
+| [RFC 1912: Common DNS Operational and Configuration Errors](https://www.rfc-editor.org/rfc/rfc1912.html) | よくある運用・設定誤りの文書化 | 1996年2月、Informational。仕様制定と運用上の助言を区別する |
+| [RFC 1886: DNS Extensions to support IP version 6](https://www.rfc-editor.org/rfc/rfc1886.html) | 1995年のDNSにおけるIPv6アドレス対応 | 1995年12月。RFC 3596が廃止。IPv6自体の誕生年とはしない |
+| [RFC 2671: Extension Mechanisms for DNS (EDNS0)](https://www.rfc-editor.org/rfc/rfc2671.html) | 1999年の拡張機構の定義 | 1999年8月。RFC 6891が廃止。運用への普及年は示さない |
+| [RFC 3596: DNS Extensions to Support IP Version 6](https://www.rfc-editor.org/rfc/rfc3596.html) | 2003年のIPv6対応の改訂 | 2003年10月。RFC 1886/3152を廃止。改訂間隔を普及までの所要年数とみなさない |
+| [RFC 6891: Extension Mechanisms for DNS (EDNS(0))](https://www.rfc-editor.org/rfc/rfc6891.html) | 2013年の拡張機構の改訂 | 2013年4月、STD 75。RFC 2671/2673を廃止。初期の固定長制約を拡張する設計として第9章へつなぐ |
+| [RFC 1995: Incremental Zone Transfer in DNS](https://www.rfc-editor.org/rfc/rfc1995.html) | ゾーン全体ではなく変更部分を転送して配布量を減らす設計 | 1996年8月、1節。全量転送がそれ以前から存在したことも確認できる |
+| [RFC 1996: A Mechanism for Prompt Notification of Zone Changes (DNS NOTIFY)](https://www.rfc-editor.org/rfc/rfc1996.html) | 定期確認の間隔による反映遅延を変更通知で短縮する設計 | 1996年8月、1節。通知自体とデータの転送を同一視しない |
+| [RFC 2308: Negative Caching of DNS Queries (DNS NCACHE)](https://www.rfc-editor.org/rfc/rfc2308.html) | 不在応答のキャッシュ規定の改訂 | 1998年3月、概要。RFC 1034にも任意の仕組みがあったため、1998年を発明年とはしない |
+| [RFC 2065: Domain Name System Security Extensions](https://www.rfc-editor.org/rfc/rfc2065.html) | DNSSECの最初の仕様が1997年に公表されたこと | 1997年1月。歴史資料として使い、現在のDNSSECの動作説明はRFC 4033〜4035等を使う |
+| [RFC 3258: Distributing Authoritative Name Servers via Shared Unicast Addresses](https://www.rfc-editor.org/rfc/rfc3258.html) | 同じアドレスで権威サーバーを複数地点へ配置する設計の文書化 | 2002年4月、Informational。配置の効果と経路への依存を第4章で評価する |
+| [RFC 4786: Operation of Anycast Services](https://www.rfc-editor.org/rfc/rfc4786.html) | Anycastの運用上の考慮事項の整理 | 2006年12月、BCP 126。DNS専用の規定でも普及率の資料でもない |
+| [RFC 5452: Measures for Making DNS More Resilient against Forged Answers](https://www.rfc-editor.org/rfc/rfc5452.html) | 偽造応答を受け入れにくくする対策の標準化 | 2009年1月、概要。以前に標準化されていなかった挙動を規定する文書であり、対策が初めて実装された年とはしない |
+| [RFC 5936: DNS Zone Transfer Protocol (AXFR)](https://www.rfc-editor.org/rfc/rfc5936.html) | 既存の全量ゾーン転送仕様の明確化 | 2010年6月、概要。AXFRはRFC 1034/1035に存在し、2010年に新設されたものではない |
+| [RFC 7766: DNS Transport over TCP - Implementation Requirements](https://www.rfc-editor.org/rfc/rfc7766.html) | TCP対応と接続運用の要求の改訂 | 2016年3月。RFC 5966を廃止。TCP利用自体の登場年ではなく、暗号化の仕様でもない |
+| [RFC 7871: Client Subnet in DNS Queries](https://www.rfc-editor.org/rfc/rfc7871.html) | 問い合わせ元ネットワークの情報を渡す拡張の文書化 | 2016年5月、Informational。性能と情報開示の衝突を第7章で評価する。暗号化・開示削減と区別する |
+| [RFC 9156: DNS Query Name Minimisation to Improve Privacy](https://www.rfc-editor.org/rfc/rfc9156.html) | 上流へ送る問い合わせ名を必要な範囲に絞る手法の改訂 | 2021年11月。RFC 7816を廃止。2021年を最初の提案年とはしない |
+
 ## 拡張性と分散管理
 
 | 資料 | 本書で裏付ける記述 | 主な箇所・注意 |
