@@ -9,9 +9,13 @@
 - `scripts/validate_layers.py`: データとアンカーの検証
 - `scripts/embed_layers.py`: Jekyllの生成済みHTMLへページ分のデータを埋め込む処理
 - `scripts/test_embed_layers.py`: 全対象章の生成済みHTMLへアセットと章別データを一度だけ埋め込めることの検証
+- `scripts/test_built_layers.py`: 実Jekyllビルド後のレイヤーデータとアセット参照の検証
+- `scripts/check_site_links.py`: 生成サイト全体の内部リンク、フラグメント、ローカルアセットの検証
 - `assets/js/layers.js`、`assets/css/layers.css`: ブラウザ上の表示
 
 Primerのlayoutは複製しません。PagesのJekyllビルド後、デプロイ対象のHTMLだけへ既存の本文を変更せずにCSS、JavaScript、そのページに必要なJSONを追加します。JavaScriptが無効な場合は、従来どおり本文だけが表示されます。
+
+PRでは実ビルドと後処理まで検証し、`review-site` アーティファクトを7日間保存します。公開はmainだけで実行します。JekyllのDocker actionが生成したファイルは、後処理前にrunnerへ所有権を移します。Layerパネルは本文の前に配置し、画面幅にかかわらず本文に重ならないようにします。2026-11-20の表示確認と正式運用の判断状況は [`progress.md`](progress.md) に記録しています。
 
 ## `view.html` 対応の進め方
 

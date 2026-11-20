@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 class EmbedLayersTest(unittest.TestCase):
     def run_embed(self, site: Path, *, check: bool = True) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
-            [sys.executable, "scripts/embed_layers.py", "--site-dir", str(site)],
+            [sys.executable, "-X", "utf8", "scripts/embed_layers.py", "--site-dir", str(site)],
             cwd=ROOT,
             check=check,
             capture_output=True,
