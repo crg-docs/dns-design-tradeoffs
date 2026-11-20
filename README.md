@@ -11,7 +11,7 @@ DNS（Domain Name System）という実在する大規模分散システムを�
 - [準備章 なぜ名前解決が必要なのか](chapters/01-name-resolution.md)
 - [第2章 拡張性――集中管理を分割する](chapters/02-scalability.md)
 - [第3章 性能――問い合わせ経路と再利用を設計する](chapters/03-performance.md)
-- [第4章 可用性と障害耐性――どの障害でも応答を続けるのか](chapters/04-availability.md)
+- [第4章 可用性と障害耐性――どの障害に対して応答を続けるのか](chapters/04-availability.md)
 - [第5章 整合性と変更反映――コピーはいつ同じになるのか](chapters/05-consistency.md)
 - [第6章 セキュリティ――何を、誰から守るのか](chapters/06-security.md)
 - [第7章 プライバシー――誰に何が見えるのか](chapters/07-privacy.md)
