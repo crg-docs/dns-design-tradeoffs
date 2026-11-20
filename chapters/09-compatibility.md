@@ -95,6 +95,6 @@ APIやメッセージ形式を拡張するときも、未知の値を中継で�
 
 ---
 
-[← 第8章 運用性と保守性](08-operations.md)｜[目次](../)｜[第10章の構成 →](../docs/outline.md)
+[← 第8章 運用性と保守性](08-operations.md)｜[目次](../)｜[第10章 総括 →](10-synthesis.md)
 
 {% include mermaid.html %}
