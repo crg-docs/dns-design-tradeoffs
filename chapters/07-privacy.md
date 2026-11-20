@@ -4,13 +4,13 @@ layout: default
 
 # 第7章 プライバシー――誰に何が見えるのか
 
-レコードの内容が公開情報でも、誰がいつその名前を問い合わせたかまで公開したいとは限りません。問い合わせの並びは、利用するサービスや行動を推測する材料になり得ます。ただし、名前解決が行われたことは、その人がページを読んだことの証明ではありません。アプリケーションの自動通信やキャッシュも関わります。[RFC 9076: DNS Privacy Considerations 3節](https://www.rfc-editor.org/rfc/rfc9076.html)
+レコードの内容が公開情報でも、誰がいつその名前を問い合わせたかまで公開したいとは限りません。問い合わせの並びは、利用するサービスや行動を推測する材料になり得ます。ただし、名前解決が行われたことは、その人がページを読んだことの証明ではありません。アプリケーションの自動通信やキャッシュも関わります。[RFC 9076: DNS Privacy Considerations 1・4.1節](https://www.rfc-editor.org/rfc/rfc9076.html)
 
 本章の要件は、単に「暗号化する」ではなく、観測者ごとに必要以上の情報を渡さないことです。制作上の責務は[文書設計メモ](../docs/document-design/07-privacy.md)に記録しています。
 
 ## 1. 観測者を経路上に置く
 
-クライアントの近くのネットワーク、再帰リゾルバの運用者、問い合わせを受けた権威サーバーの運用者は、同じ情報を見るわけではありません。再帰リゾルバは、通常はクライアントから問い合わせ名を受け取ります。権威側が直接見る問い合わせ元は、通常はその再帰リゾルバです。しかし転送される追加情報や配置によって、見える範囲は変わります。[RFC 9076 3節](https://www.rfc-editor.org/rfc/rfc9076.html)
+クライアントの近くのネットワーク、再帰リゾルバの運用者、問い合わせを受けた権威サーバーの運用者は、同じ情報を見るわけではありません。再帰リゾルバは、通常はクライアントから問い合わせ名を受け取ります。権威側が直接見る問い合わせ元は、通常はその再帰リゾルバです。しかし転送される追加情報や配置によって、見える範囲は変わります。[RFC 9076 6.1・6.2節](https://www.rfc-editor.org/rfc/rfc9076.html)
 
 次の図は、クライアントから再帰リゾルバまでを暗号化した例です。後半の経路まで同じ保護が自動的に広がるとは限りません。狭い画面では図を横へスクロールできます。
 
@@ -44,6 +44,71 @@ QNAME Minimisationは、上流へ常に元の完全な問い合わせ名と型�
 
 ## 4. 信頼する相手と保管期間を選ぶ
 
-暗号化の終端になる再帰リゾルバは、問い合わせを処理するために内容を読みます。近くのネットワークから内容を隠しても、終端の運用者への信頼は残ります。多くの利用者が少数のサービスへ集まると、運用や防御に資源を集められる一方、問い合わせ情報や障害の影響も集まり得ます。[RFC 9076 3.6節](https://www.rfc-editor.org/rfc/rfc9076.html)
+暗号化の終端になる再帰リゾルバは、問い合わせを処理するために内容を読みます。近くのネットワークから内容を隠しても、終端の運用者への信頼は残ります。多くの利用者が少数のサービスへ集まると、運用や防御に資源を集められる一方、問い合わせ情報や障害の影響も集まり得ます。[RFC 9076 6.1節](https://www.rfc-editor.org/rfc/rfc9076.html)
 
 ここからは本書の運用上の整理です。選定時には、通信方式に加え、何を記録するか、どれだけ保管するか、誰がアクセスするか、別の目的で使うかを確認します。公開方針があることと、外部からその実施状況を検証できることは別です。プロトコルの仕様だけから、特定の事業者がログを保存しないとは判断しません。
+
+## 5. 二つの入口から同じ名前を問い合わせる
+
+2026年11月20日、日本標準時21時24分に、Windowsの同じ端末から`example.com`のAレコードを問い合わせました。一つは`Resolve-DnsName`で`1.1.1.1`を指定する通常の問い合わせ、もう一つはCloudflareのHTTPS JSON APIです。OS全体のリゾルバ設定は変更していません。
+
+```powershell
+Resolve-DnsName -Name example.com -Type A -Server 1.1.1.1 -DnsOnly
+Invoke-WebRequest -Uri 'https://cloudflare-dns.com/dns-query?name=example.com&type=A' -Headers @{Accept='application/dns-json'}
+```
+
+JSON APIは事業者が提供する形式です。RFC 8484の`application/dns-message`による標準のワイヤー形式を測ったものではありません。Cloudflareの公式資料も、JSON形式には共通の正式なRFCがないと明記しています。[Cloudflare: Using JSON](https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/)
+
+| 問い合わせ開始時刻（日本標準時） | 入口 | 観測したAレコード | TTL |
+| --- | --- | --- | --- |
+| 21:24:10.351 | 通常の問い合わせ、`1.1.1.1` | `172.66.147.243`、`104.20.23.154` | 両方102 |
+| 21:24:13.068 | HTTPS JSON API | `104.20.23.154`、`172.66.147.243` | 両方46 |
+
+HTTPS側はHTTPステータス200で、応答の`Question`に`example.com`と型1が含まれていました。少なくともこのAPIの終端は、要求を復号して名前を処理しています。問い合わせ名をURLのパラメーターに入れていますが、HTTPSの通信経路でそのURL全体が平文送信されるという意味ではありません。クライアントや終端がURLを記録する可能性とは分けて考えます。
+
+アドレスの集合は一致し、順序とTTLは異なりました。この差から、同じキャッシュを使ったとも、暗号化のためにTTLが減ったとも判断できません。問い合わせの入口が同じ事業者でも、内部の経路やキャッシュの共有は今回観測していません。
+
+[生データ](../references/observations/privacy-2026-11-20.json)と[再現スクリプト](https://github.com/crg-docs/dns-design-tradeoffs/blob/main/scripts/observe_privacy.ps1)を残しています。リポジトリのルートで次を実行できます。応答値は日時や地点により変わります。
+
+```powershell
+./scripts/observe_privacy.ps1 -OutputPath .review/privacy-rerun.json
+```
+
+これはパケットの採取や暗号化の解読実験ではありません。上流への問い合わせ、QNAME Minimisation、ECS、事業者のログ保持も測っていません。確認できたのは、この端末から二つの入口を使って回答を取得できたことと、その内容です。暗号化が提供する保護の根拠は仕様、観測値の根拠はこの記録と分けています。
+
+## 6. 保護できないときの挙動を決める
+
+本書の運用上の提案は、正常時と失敗時の両方で経路を確認することです。暗号化先へ到達できないときに平文へ戻るなら、通信は続いても、秘匿するという要件は満たされなくなります。一方、停止するなら、保護を維持する代わりに名前解決ができません。どちらを許容するかを先に決め、利用者や運用者がその状態を判別できるようにします。
+
+アプリケーションが独自のリゾルバを選ぶ構成では、OSの設定だけを見ても実際の経路を説明できません。組織内だけで使う名前や、問い合わせの監視も含め、どのクライアントがどこへ送るかを確認します。内容を見ない運用に変えるなら、接続失敗率、待ち時間、検証失敗など、必要な診断情報をどの層で得るかも設計対象です。
+
+## 7. 他のシステムへ持ち帰る
+
+これは、暗号化されたAPIやログ基盤にも通じる設計上の類推です。転送中に読めなくすること、送る項目を減らすこと、受信後に保持しないことは別々の対策です。すべての情報を送ってから通信だけを暗号化する案と、不要な項目を最初から送らない案を比較できます。
+
+ただし、問い合わせ先が名前解決をするために必要な情報と、別のアプリケーションが必要とする情報は異なります。機能名を移植するのではなく、観測者、情報、区間、保管期間を一つずつ描き、目的に必要かを問い直します。
+
+## この章の言い換え
+
+| 前 | 後 |
+| --- | --- |
+| 「DNSを暗号化したので誰にも見えません」 | 「この通信区間の盗聴を抑えますが、終端のリゾルバは問い合わせ名を読みます」 |
+| 「DNSのプライバシー対策です」 | 「上流に渡す名前を必要な範囲に絞り、通信の保護とログ保持を別々に評価します」 |
+| 「DNSの設定はOSで確認しました」 | 「アプリケーションが独自の問い合わせ先を使うか、失敗時に別経路へ戻るかも確認します」 |
+
+## 参照資料
+
+- [RFC 9076: DNS Privacy Considerations](https://www.rfc-editor.org/rfc/rfc9076.html) 1・4・6節
+- [RFC 7858: Specification for DNS over Transport Layer Security (TLS)](https://www.rfc-editor.org/rfc/rfc7858.html)
+- [RFC 8310: Usage Profiles for DNS over TLS and DNS over DTLS](https://www.rfc-editor.org/rfc/rfc8310.html) 5・6・11.1節
+- [RFC 8484: DNS Queries over HTTPS (DoH)](https://www.rfc-editor.org/rfc/rfc8484.html)
+- [RFC 9250: DNS over Dedicated QUIC Connections](https://www.rfc-editor.org/rfc/rfc9250.html) 1・4節
+- [RFC 9156: DNS Query Name Minimisation to Improve Privacy](https://www.rfc-editor.org/rfc/rfc9156.html) 2・3節
+- [RFC 7871: Client Subnet in DNS Queries](https://www.rfc-editor.org/rfc/rfc7871.html) 2・7.3節
+- [Cloudflare: Using JSON](https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/)
+
+---
+
+[← 第6章 セキュリティ](06-security.md)｜[目次](../)｜[第8章の構成 →](../docs/outline.md)
+
+{% include mermaid.html %}
