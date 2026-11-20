@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import json
 import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -16,11 +17,12 @@ ROOT = Path(__file__).resolve().parents[1]
 class EmbedLayersTest(unittest.TestCase):
     def run_embed(self, site: Path, *, check: bool = True) -> subprocess.CompletedProcess[str]:
         return subprocess.run(
-            ["python3", "scripts/embed_layers.py", "--site-dir", str(site)],
+            [sys.executable, "-X", "utf8", "scripts/embed_layers.py", "--site-dir", str(site)],
             cwd=ROOT,
             check=check,
             capture_output=True,
             text=True,
+            encoding="utf-8",
         )
 
     def test_all_documents_receive_assets_and_entries(self) -> None:
@@ -47,9 +49,7 @@ class EmbedLayersTest(unittest.TestCase):
                 end = page.index("</script>", start)
                 payload = json.loads(page[start:end])
                 self.assertEqual(document["entries"], payload["entries"])
-                expected_design = "../" + str(
-                    Path(document["documentDesign"]).with_suffix(".html")
-                )
+                expected_design = "../" + Path(document["documentDesign"]).with_suffix(".html").as_posix()
                 self.assertEqual(expected_design, payload["metadata"]["documentDesign"])
                 for definition in payload["types"].values():
                     self.assertRegex(definition["color"], r"^#[0-9a-fA-F]{6}$")

@@ -73,5 +73,5 @@
   metadata.append(designLink);
   panel.append(controls);
   panel.append(metadata);
-  document.body.append(panel);
+  content.before(panel);
 })();

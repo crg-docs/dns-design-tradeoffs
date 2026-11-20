@@ -66,6 +66,8 @@
 
 ## 現在の設計メモ
 
+- [第0章「DNSはなぜ複雑に見えるのか」](00-introduction.md)
+- [第1章「見取り図」](01-timeline.md)
 - [準備章「なぜ名前解決が必要なのか」](01-name-resolution.md)
 - [第2章「拡張性――集中管理を分割する」](02-scalability.md)
 

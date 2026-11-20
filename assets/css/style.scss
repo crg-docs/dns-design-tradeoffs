@@ -1,0 +1,15 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.timeline-figure {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+}
+
+.timeline-figure svg {
+  display: block;
+  min-width: 680px;
+  max-width: none;
+}
