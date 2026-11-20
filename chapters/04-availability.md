@@ -134,6 +134,6 @@ Serialは、ゾーンの版を比較するための値です。この観測で�
 
 ---
 
-[← 第3章 性能](03-performance.md)｜[目次](../)｜[次の章 整合性と変更反映 →](../docs/outline.md#第5章-整合性と変更反映コピーはいつ同じになるのか)
+[← 第3章 性能](03-performance.md)｜[目次](../)｜[第5章 整合性と変更反映 →](05-consistency.md)
 
 {% include mermaid.html %}

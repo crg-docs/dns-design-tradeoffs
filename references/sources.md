@@ -26,6 +26,21 @@
 | [RFC 7871: Client Subnet in DNS Queries](https://www.rfc-editor.org/rfc/rfc7871.html) | 問い合わせ元ネットワークの情報を渡す拡張の文書化 | 2016年5月、Informational。性能と情報開示の衝突を第7章で評価する。暗号化・開示削減と区別する |
 | [RFC 9156: DNS Query Name Minimisation to Improve Privacy](https://www.rfc-editor.org/rfc/rfc9156.html) | 上流へ送る問い合わせ名を必要な範囲に絞る手法の改訂 | 2021年11月。RFC 7816を廃止。2021年を最初の提案年とはしない |
 
+## 整合性と変更反映
+
+2026-11-20に第5章の使用箇所を確認しました。実験は仕様の証明ではなく、固定した実装・設定での観測です。
+
+| 資料 | 本書で裏付ける記述 | 主な箇所・注意 |
+| --- | --- | --- |
+| [RFC 1982: Serial Number Arithmetic](https://www.rfc-editor.org/rfc/rfc1982.html) | SOA Serialの周回と比較規則 | 1996年8月、2〜4節。RFC 1034/1035を更新。時刻としての解釈や通常の大小比較へ置き換えない |
+| [RFC 2136: Dynamic Updates in the Domain Name System (DNS UPDATE)](https://www.rfc-editor.org/rfc/rfc2136.html) | 前提条件付きの追加・削除と更新の原子性 | 1997年4月、概要・3節。RFC 1035を更新し、RFC 3007・4033〜4035で更新。原子性を全キャッシュの同時変更へ拡張しない。認証は第6章で別途扱う |
+| [CoreDNS: file](https://coredns.io/plugins/file/) | ファイルとSOAの版に基づく再読み込み | `reload`の指定。今回の1秒は実験設定で、標準値ではない |
+| [CoreDNS: cache](https://coredns.io/plugins/cache/) | キャッシュ期間の上限指定 | `cache 300`は全回答を300秒保存する指定ではない。実験ではTTL 20秒と5秒を使用 |
+| [CoreDNS: forward](https://coredns.io/plugins/forward/) | 明示した上流への転送 | 今回はループバックの権威側だけを指定。インターネットの反復解決とは区別 |
+| [CoreDNS v1.15.0](https://github.com/coredns/coredns/releases/tag/v1.15.0) | 実験に用いた配布物と版 | Windows amd64。公式チェックサムを照合して使用。観測JSONに実行時の版と全設定を保存 |
+
+RFC 2308の3・5節は不在応答のTTLに使用します。後続のRFC 9499は用語、RFC 9520は解決失敗のキャッシュに関わり、本章の名前の不在とは区別します。
+
 ## 拡張性と分散管理
 
 | 資料 | 本書で裏付ける記述 | 主な箇所・注意 |

@@ -1,0 +1,110 @@
+{
+  "software": "CoreDNS-1.15.0\nwindows/amd64, go1.27.3, a6fde3f",
+  "node": "v22.20.0",
+  "vantage": "Windows loopback only; no external DNS forwarding",
+  "authority": "127.0.0.1:15354",
+  "cache": "127.0.0.1:15353",
+  "config": "lab.test:15354 {\n    bind 127.0.0.1\n    file db.lab.test lab.test {\n        reload 1s\n    }\n    errors\n}\nlab.test:15353 {\n    bind 127.0.0.1\n    cache 300\n    forward . 127.0.0.1:15354\n    errors\n}\n",
+  "before_zone": "$ORIGIN lab.test.\n$TTL 20\n@ 20 IN SOA ns.lab.test. hostmaster.lab.test. 1 60 60 600 20\n@ IN NS ns.lab.test.\nns IN A 127.0.0.1\napp 20 IN A 192.0.2.1\n",
+  "after_zone": "$ORIGIN lab.test.\n$TTL 20\n@ 20 IN SOA ns.lab.test. hostmaster.lab.test. 2 60 60 600 20\n@ IN NS ns.lab.test.\nns IN A 127.0.0.1\napp 5 IN A 192.0.2.2\nnew 5 IN A 192.0.2.3\n",
+  "events": [
+    {
+      "label": "cache-before-change",
+      "name": "app.lab.test",
+      "at_utc": "2026-11-20T12:10:28.428Z",
+      "elapsed_ms": 214,
+      "answers": [
+        {
+          "address": "192.0.2.1",
+          "ttl": 20
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "label": "negative-before-addition",
+      "name": "new.lab.test",
+      "at_utc": "2026-11-20T12:10:28.432Z",
+      "elapsed_ms": 217,
+      "status": "ENOTFOUND"
+    },
+    {
+      "label": "zone-file-changed",
+      "at_utc": "2026-11-20T12:10:28.434Z",
+      "elapsed_ms": 219,
+      "serial": 2
+    },
+    {
+      "label": "authority-after-change",
+      "name": "app.lab.test",
+      "at_utc": "2026-11-20T12:10:29.408Z",
+      "elapsed_ms": 1193,
+      "answers": [
+        {
+          "address": "192.0.2.2",
+          "ttl": 5
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "label": "cache-after-change",
+      "name": "app.lab.test",
+      "at_utc": "2026-11-20T12:10:29.409Z",
+      "elapsed_ms": 1194,
+      "answers": [
+        {
+          "address": "192.0.2.1",
+          "ttl": 20
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "label": "authority-after-addition",
+      "name": "new.lab.test",
+      "at_utc": "2026-11-20T12:10:29.410Z",
+      "elapsed_ms": 1195,
+      "answers": [
+        {
+          "address": "192.0.2.3",
+          "ttl": 5
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "label": "negative-cache-after-addition",
+      "name": "new.lab.test",
+      "at_utc": "2026-11-20T12:10:29.411Z",
+      "elapsed_ms": 1196,
+      "status": "ENOTFOUND"
+    },
+    {
+      "label": "cache-after-old-expiry",
+      "name": "app.lab.test",
+      "at_utc": "2026-11-20T12:10:50.441Z",
+      "elapsed_ms": 22226,
+      "answers": [
+        {
+          "address": "192.0.2.2",
+          "ttl": 5
+        }
+      ],
+      "status": "answered"
+    },
+    {
+      "label": "cache-after-negative-expiry",
+      "name": "new.lab.test",
+      "at_utc": "2026-11-20T12:10:50.443Z",
+      "elapsed_ms": 22228,
+      "answers": [
+        {
+          "address": "192.0.2.3",
+          "ttl": 5
+        }
+      ],
+      "status": "answered"
+    }
+  ]
+}
