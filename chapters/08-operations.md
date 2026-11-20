@@ -107,6 +107,6 @@ SERVFAILのような応答コードだけでは、原因の表現力が不足し
 
 ---
 
-[← 第7章 プライバシー](07-privacy.md)｜[目次](../)｜[第9章の構成 →](../docs/outline.md)
+[← 第7章 プライバシー](07-privacy.md)｜[目次](../)｜[第9章 後方互換性と発展性 →](09-compatibility.md)
 
 {% include mermaid.html %}
