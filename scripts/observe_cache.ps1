@@ -34,5 +34,6 @@ $record = [ordered]@{
 }
 $directory = Split-Path -Parent $OutputPath
 if ($directory) { New-Item -ItemType Directory -Force $directory | Out-Null }
-$record | ConvertTo-Json -Depth 8 | Set-Content -Encoding utf8 $OutputPath
+$observationJson = (($record | ConvertTo-Json -Depth 8) -replace '\r\n', "`n") + "`n"
+$observationJson | Set-Content -Encoding utf8 -NoNewline $OutputPath
 $record | ConvertTo-Json -Depth 8
