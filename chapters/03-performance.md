@@ -63,9 +63,92 @@ flowchart TD
   <circle cx="46" cy="128" r="6" fill="#0969da"/>
   <text x="65" y="133" font-size="15" fill="#24292f">120秒：再利用。残りは180秒</text>
   <circle cx="46" cy="208" r="6" fill="#0969da"/>
-  <text x="65" y="213" font-size="15" fill="#24292f">300秒：通常の再利用期限。次の利用には更新が必要</text>
+  <text x="65" y="213" font-size="15" fill="#24292f">300秒：通常の再利用期限を迎える</text>
 </svg>
 
 この300秒は、必ずキャッシュへ保持される時間でもありません。容量や実装上の判断で早く削除される場合があり、TTLは通常の再利用の上限です。また、TTLが満了した瞬間に、すべてのキャッシュが一斉に問い合わせるという意味でもありません。期限後に必要になってから取得する場合と、後述する先取り更新を行う場合を区別します。[RFC 2181: Clarifications to the DNS Specification](https://www.rfc-editor.org/rfc/rfc2181.html) 8節
 
 長いTTLは、同じ情報を再び使う機会を増やす一方、変更前の情報が使われる期間も長くします。短くすれば変更を確認する機会は増えますが、上流への問い合わせと、その待ち時間を引き受けます。したがって、TTLを長くすることを性能の改善だけとして評価することはできません。変更反映との交換条件であり、具体的な変更計画は第5章で扱います。期限切れデータを障害時に使う例外は、通常の再利用とは分けて後述します。
+
+## 5. 「ない」という答えにも再利用の価値がある
+
+利用者が存在しない名前を何度も指定する場合、そのたびに同じ探索を繰り返すと、答えが得られないまま上流の仕事だけが増えます。**Negative Caching（否定応答のキャッシュ）**は、不在を示す応答も再利用する仕組みです。ただし、「名前が存在しない」と「その名前に指定した種類の情報がない」は異なります。前者をNXDOMAIN、後者をNODATAと呼びます。たとえばAレコードがないことだけから、その名前の他の種類の情報まで存在しないとは判断できません。[RFC 2308: Negative Caching of DNS Queries](https://www.rfc-editor.org/rfc/rfc2308.html) 2節、5節
+
+不在応答の再利用にも期限があります。RFC 2308では、ゾーンの管理情報を表すStart of Authority（SOA）レコードを使い、そのTTLとMINIMUMフィールドの小さい方から否定応答の期限を定めます。不在を再利用すると、失敗を繰り返す問い合わせの負荷を抑えられますが、その後で名前やレコードを追加しても、過去の不在が残る場合があります。「まだない」を覚える設計も、性能と変更反映を交換しているのです。[RFC 2308: Negative Caching of DNS Queries](https://www.rfc-editor.org/rfc/rfc2308.html) 3節、5節
+
+さらに、「存在しないと確認できた」と「調べる処理が失敗した」も区別します。タイムアウトや検証失敗を不在と取り違えると、答えの意味が変わります。それでも失敗のたびに探索を繰り返せば、障害中の上流へ負荷を集中させます。RFC 9520は、この解決失敗のキャッシュを必須とする方向へ規定を更新しています。これは失敗を成功に変える仕組みではなく、失敗している処理の反復を抑える設計です。[RFC 9520: Negative Caching of DNS Resolution Failures](https://www.rfc-editor.org/rfc/rfc9520.html) 概要、3節
+
+## 6. 通信方式だけで「速い」は決まらない
+
+問い合わせ一回の通信にも費用があります。User Datagram Protocol（UDP）は、Transmission Control Protocol（TCP）のような接続確立を先に行わずにメッセージを送れます。ただし、届かなかったときに誰が待ち、再送し、別の相手を選ぶかという仕事がなくなるわけではありません。初期仕様も、UDPによる問い合わせについて再送の戦略を必要としています。[RFC 1035: Domain Names—Implementation and Specification](https://www.rfc-editor.org/rfc/rfc1035.html) 4.2.1節
+
+UDPの応答へ必要な情報が収まらない場合もあります。応答が切り詰められたことを示すTruncation（TC）ビットが返ると、完全な答えを得るためにTCPを使い直す経路が生じます。したがって、UDPで始めれば常に最短の往復で終わるとは限りません。応答の大きさ、損失、やり直しまで含めて評価します。[RFC 2181: Clarifications to the DNS Specification](https://www.rfc-editor.org/rfc/rfc2181.html) 9節
+
+反対に、TCPの接続がすでに使えるなら、問い合わせごとに確立し直す必要はありません。RFC 7766は、汎用DNS実装へUDPとTCPの両方への対応を要求し、TCPをUDP失敗後だけの手段とは位置付けていません。接続再利用や複数問い合わせの処理も、性能を考える際の対象です。[RFC 7766: DNS Transport over TCP—Implementation Requirements](https://www.rfc-editor.org/rfc/rfc7766.html) 5節、6節
+
+ここでの判断は「UDPかTCPか」という名称の比較では終わりません。初回の接続なのか、再利用できる接続なのか、応答が一度で届くのか、待ち直しが起きるのかを条件としてそろえます。暗号化する区間と終端の選び方は第7章で扱います。
+
+## 7. 平均を下げた後に、遅い側が残る
+
+よく使う情報がキャッシュにあれば、多くの問い合わせは短く終わります。それでも期限直後の利用者は、情報の取得を待つ場合があります。**Prefetch（先取り更新）**は、その待ちを減らすための実装上の工夫です。たとえばBIND 9では、期限の近いキャッシュ情報への問い合わせを契機に、権威サーバーへ更新を求める設定があります。これはBINDの実装例であり、すべてのリゾルバが同じ条件で動くという意味ではありません。[BIND 9.20.16 ARM: prefetch](https://bind9.readthedocs.io/en/v9.20.16/reference.html#prefetch)
+
+先取りは、後の利用者が待たずに済む可能性を買うために、今の問い合わせを増やします。その情報が再び利用されなければ、更新の仕事は利用者の待ち時間削減につながりません。評価には平均応答時間だけでなく、追加の上流問い合わせ数と、期限直後の遅延を含めます。
+
+上流が遅い、または更新できない場合には、**Serve Stale**という別の選択肢があります。期限切れのデータを使って応答を続ける仕組みで、利用者の待ちや失敗を減らす代わりに、情報が古い可能性を引き受けます。更新を先に行うPrefetchとは異なる判断です。具体的な動作と運用条件は第4章に残し、ここでは「待つ時間を減らす手段が、最新性も変えてしまう」例として押さえます。[RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 4節、5節
+
+## 8. 実際の応答から何が分かるか
+
+次は2026年11月20日に、著者のWindows作業端末から採った観測です。対象は `example.com` のAレコード、問い合わせ先に指定したアドレスは `1.1.1.1` です。地理的な観測地点とリゾルバ内部の処理先は特定していません。キャッシュの消去や対象レコードの変更も行っていません。
+
+PowerShell 7.6.9で、次のコマンドを3回実行し、各応答の後に2秒待ちました。`-DnsOnly` と `-NoHostsFile` は、DNS以外の補助的な名前解決とhostsファイルを対象から外すための指定です。[Microsoft Learn: Resolve-DnsName](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
+
+```powershell
+Resolve-DnsName -Name example.com -Type A -Server 1.1.1.1 -DnsOnly -NoHostsFile
+```
+
+| 問い合わせ開始時刻（日本時間） | 返されたAレコード数 | 各AレコードのTTL |
+| --- | --- | --- |
+| 2026-11-20 20:54:51.735 | 2 | 27秒 |
+| 2026-11-20 20:54:57.353 | 2 | 28秒 |
+| 2026-11-20 20:54:59.378 | 2 | 126秒 |
+
+3回とも同じ二つのアドレスが返りましたが、TTLは単調には減りませんでした。[観測の生データ](../references/observations/cache-2026-11-20.json)には時刻、アドレス、コマンド全体の所要時間も保存しています。最初の実行時間にはコマンド初期化などが含まれ得るため、通信だけの時間としては掲載しません。
+
+この結果は、第4節の説明用の図と矛盾するのでしょうか。図は「同じキャッシュの同じ取得結果を、再取得せずに使う」という仮定でした。一方、この観測では、その仮定が成立したかを確認できません。異なるキャッシュの応答だった可能性や、途中で更新された可能性などを、この三つの値だけでは切り分けられません。TTLが増えた理由をPrefetchだったと断定することもできません。
+
+確かめられたのは、この条件でその値が返ったことまでです。キャッシュの効果を厳密に比較するなら、同じ処理先、キャッシュの状態、上流へ実際に出た問い合わせを観測できる環境が必要になります。制御していない公開リゾルバで最初と二度目を比較しただけでは、「二度目が速かったからキャッシュの効果」とは結論できません。
+
+## 9. 他のシステムへ持ち帰る
+
+この設計は、APIの応答、商品情報、認証に使う情報などをキャッシュする場面でも現れます。まず、誰の待ち時間と誰の負荷を減らすのかを決めます。次に、同じ情報とみなす範囲、再利用の期限、失敗や不在を覚えてよい期間を決めます。最後に、期限切れや取得失敗の際に、待つ、古い情報を返す、失敗を返すという選択を評価します。
+
+ただし、DNSのTTLをそのまま別の情報へ移せばよいわけではありません。名前解決で古いアドレスを短時間返すことと、失効した権限を使って操作を許可することでは、誤りの影響が違います。適用できるのは期限の値ではなく、再利用によって何を減らし、どんな古さを許すのかを明示する考え方です。
+
+運用でも、キャッシュヒット率だけを単独の目標にしません。利用者から見た遅延と失敗率、上流の問い合わせ数、返している情報の古さを併せて確認します。上流の仕事を減らしても、利用者が使えない答えを速く返しているなら、目的を達成したとはいえません。
+
+## この章の言い換え
+
+| 前 | 後 |
+| --- | --- |
+| 「DNSが遅い」 | 「利用者の待ち時間を、再利用できた場合、上流をたどった場合、失敗した場合に分けて測る」 |
+| 「DNSのTTLを長くすればよい」 | 「問い合わせを減らせる期間と、変更前の情報を再利用し得る期間を一緒に決める」 |
+| 「DNSの二度目の応答が速いからキャッシュが効いた」 | 「同じ処理先とキャッシュ状態を確認していないので、時間差だけでは原因を断定しない」 |
+
+## 参照資料
+
+- [RFC 1034: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034.html) 2.2節、5.3.3節
+- [RFC 1035: Domain Names—Implementation and Specification](https://www.rfc-editor.org/rfc/rfc1035.html) 3.2.1節、4.2.1節、7.1節
+- [RFC 2181: Clarifications to the DNS Specification](https://www.rfc-editor.org/rfc/rfc2181.html) 5節、8節、9節
+- [RFC 2308: Negative Caching of DNS Queries](https://www.rfc-editor.org/rfc/rfc2308.html) 2節、3節、5節
+- [RFC 7766: DNS Transport over TCP—Implementation Requirements](https://www.rfc-editor.org/rfc/rfc7766.html) 5節、6節
+- [RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 4節、5節
+- [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 4節、6節
+- [RFC 9520: Negative Caching of DNS Resolution Failures](https://www.rfc-editor.org/rfc/rfc9520.html) 概要、3節
+- [BIND 9.20.16 ARM: prefetch](https://bind9.readthedocs.io/en/v9.20.16/reference.html#prefetch) 実装例
+- [Microsoft Learn: Resolve-DnsName](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname) 観測コマンドのオプション
+
+---
+
+[← 第2章 拡張性](02-scalability.md)｜[目次](../)｜[次の章 可用性と障害耐性 →](../docs/outline.md#第4章-可用性と障害耐性どの障害でも応答を続けるのか)
+
+{% include mermaid.html %}

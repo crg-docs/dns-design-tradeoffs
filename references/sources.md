@@ -45,6 +45,14 @@
 
 ## 性能、整合性、変更反映
 
+第3章の追加資料は2026-11-20に本文の使用箇所を確認しました。RFC 2308の失敗キャッシュに関する記述はRFC 9520の更新を反映し、Prefetchは特定バージョンの実装例として扱います。
+
+| 追加資料 | 本書で裏付ける記述 | 適用範囲 |
+| --- | --- | --- |
+| [RFC 9520: Negative Caching of DNS Resolution Failures](https://www.rfc-editor.org/rfc/rfc9520.html) | 不在の確認と解決失敗を区別し、失敗の反復による上流負荷を抑える設計 | 2023年12月。概要、3節。RFC 2308/4035/4697を更新。失敗を不在へ変えるものではない |
+| [BIND 9.20.16 ARM: prefetch](https://bind9.readthedocs.io/en/v9.20.16/reference.html#prefetch) | 期限の近いキャッシュへの問い合わせを契機とした先取り更新 | 第3章の実装例。BIND 9.20.16に限定し、他実装の挙動や既定値へ一般化しない |
+| [Microsoft Learn: Resolve-DnsName](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname) | Server、DnsOnly、NoHostsFile等の観測コマンドの指定 | 第3章の再現条件。DNS仕様の根拠としては使わない |
+
 | 資料 | 本書で裏付ける記述 | 問題・環境・トレードオフ |
 | --- | --- | --- |
 | [RFC 1034: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034.html) | リゾルバ、再帰・反復、キャッシュの基本概念 | 問い合わせと再利用が負荷を抑える一方、キャッシュされたコピーを生む |

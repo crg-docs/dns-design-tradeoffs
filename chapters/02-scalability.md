@@ -183,6 +183,6 @@ graph TD
 
 ---
 
-[← 準備章 なぜ名前解決が必要なのか](01-name-resolution.md)｜[目次](../)｜[次の章 性能 →](../docs/outline.md#第3章-性能問い合わせ経路と再利用を設計する)
+[← 準備章 なぜ名前解決が必要なのか](01-name-resolution.md)｜[目次](../)｜[次の章 性能 →](03-performance.md)
 
 {% include mermaid.html %}
