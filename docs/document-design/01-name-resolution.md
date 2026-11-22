@@ -8,7 +8,7 @@ layout: default
 - 状態: 前提語彙を本文へ反映、著者の通読判定前
 - 記録種別: 既存資料からの復元
 - 復元元: 対象文書、[`outline.md`](../outline.md)、[`mechanism-map.md`](../mechanism-map.md)、[`progress.md`](../progress.md)、対象文書のGit履歴
-- 最終更新: 2026-11-20
+- 最終更新: 2026-11-22
 
 ## 目的
 
