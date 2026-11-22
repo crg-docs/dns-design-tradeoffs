@@ -46,7 +46,16 @@ flowchart TD
 
 ## 4. 検証できない理由を一つにまとめない
 
-DNSSECには、信頼の起点からの連鎖と必要な署名を検証できたSecure、署名による保護がないと判断できるInsecure、保護されるはずなのに検証が成立しないBogus、その領域が保護されると判断する信頼の起点を持たないIndeterminateという区別があります。「署名がない」と「署名の検証に失敗した」は同じ状態ではありません。検証途中で必要な情報を取得できない場合を、すべてIndeterminateと呼ぶわけでもありません。[RFC 4033 5節](https://www.rfc-editor.org/rfc/rfc4033.html)
+検証者から見た状態は、次のように分かれます。[RFC 4033 5節](https://www.rfc-editor.org/rfc/rfc4033.html)
+
+| 状態 | 検証者が判断できること |
+| --- | --- |
+| Secure | 信頼の起点からの連鎖と必要な署名を検証できた |
+| Insecure | 署名による保護がないと判断できる |
+| Bogus | 保護されるはずなのに検証が成立しない |
+| Indeterminate | その領域が保護されると判断する信頼の起点を持たない |
+
+「署名がない」と「署名の検証に失敗した」は同じ状態ではありません。検証途中で必要な情報を取得できない場合を、すべてIndeterminateと呼ぶわけでもありません。
 
 署名を検証する再帰リゾルバへ処理を任せる場合、その結果を端末へどう伝えるかも境界になります。応答のAD（Authenticated Data）ビットは検証結果に関わる通知ですが、信頼できない経路で受け取ったビットだけを安全性の根拠にはできません。端末自身で検証するか、委ねるリゾルバと通信経路を信頼できる条件にする必要があります。ADの取り扱いはRFC 4035に加え、RFC 6840で明確化されています。[RFC 4035 4.9.3節](https://www.rfc-editor.org/rfc/rfc4035.html)、[RFC 6840: Clarifications and Implementation Notes for DNS Security (DNSSEC) 5.7・5.8節](https://www.rfc-editor.org/rfc/rfc6840.html)
 
