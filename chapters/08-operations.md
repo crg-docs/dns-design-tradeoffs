@@ -4,9 +4,9 @@ layout: default
 
 # 第8章 運用性と保守性――正しさを維持し、説明できるか
 
-設定ファイルの文法は正しく、サーバーのプロセスも動いています。それでも利用者の問い合わせは失敗します。このとき「設定チェックは通った」と言えても、「必要な人へ正しい回答を届けている」とはまだ言えません。
+ここまで、管理、再利用、複製、署名、情報開示の境界を分けてきました。運用では、その境界をまたいで一つの変更や障害を追う必要があります。設定ファイルの文法が正しく、サーバーのプロセスが動いていても、「必要な人へ正しい回答を届けている」とはまだ言えません。
 
-運用性とは、日々の変更と失敗を扱えることです。本章では、変更の意図と実際の応答を結び付け、別の担当者にも状態を説明できるようにします。制作上の責務は[文書設計メモ](../docs/document-design/08-operations.md)に記録しています。
+運用性とは、日々の変更と失敗を扱えることです。本章では、変更の意図と実際の応答を結び付け、別の担当者にも状態を説明できるようにします。
 
 ## 1. 正しい状態を一度作るだけでは足りない
 
@@ -108,6 +108,8 @@ SERVFAILのような応答コードだけでは、原因の表現力が不足し
 - [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 6節
 - [RFC 8906: A Common Operational Problem in DNS Servers: Failure to Communicate](https://www.rfc-editor.org/rfc/rfc8906.html)
 - [RFC 8914: Extended DNS Errors](https://www.rfc-editor.org/rfc/rfc8914.html) 3・6節
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/08-operations.md)
 
 ---
 

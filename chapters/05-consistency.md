@@ -8,8 +8,6 @@ layout: default
 
 この判断には「DNSの反映待ち」では情報が足りません。更新を受け付けた場所、問い合わせた場所、そこで保持している情報の期限を分ける必要があります。本章では、コピーを再利用する利点を残しながら、変更前後の不一致をどう扱うかを考えます。
 
-制作上の責務と構成意図は[文書設計メモ](../docs/document-design/05-consistency.md)に記録しています。
-
 ## 1. 何をもって変更完了とするのか
 
 整合性を評価するときは、誰がどの情報を同じものとして読む必要があるかを決めます。権威サーバーが新しいレコードを返すことと、利用者の再帰リゾルバが新しいレコードを返すことは、別の完了条件です。さらに、アプリケーションが既存の接続を使い続けていれば、名前解決の結果が変わっても通信先はすぐには変わりません。最後の部分は本書の運用上の整理であり、レコードのTTLだけでは評価できない範囲です。
@@ -145,6 +143,8 @@ node scripts/observe_change.cjs <CoreDNS実行ファイルのパス> .review/cha
 - [RFC 2308: Negative Caching of DNS Queries (DNS NCACHE)](https://www.rfc-editor.org/rfc/rfc2308.html) 3・5節
 - [RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html)
 - CoreDNS公式資料: [file](https://coredns.io/plugins/file/)、[cache](https://coredns.io/plugins/cache/)、[forward](https://coredns.io/plugins/forward/)、[v1.15.0リリース](https://github.com/coredns/coredns/releases/tag/v1.15.0)
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/05-consistency.md)
 
 ---
 

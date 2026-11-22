@@ -4,8 +4,6 @@ layout: default
 
 # 第3章 性能――問い合わせ経路と再利用を設計する
 
-> 構成の理由と扱う範囲は[この章の設計メモ](../docs/document-design/03-performance.md)に記録します。
-
 ## 1. 待たされる人と、仕事を引き受ける人
 
 利用者にとっては、ページを開くまでの待ち時間の一部として名前解決があります。一方、名前解決を提供する側は、一人の問い合わせを処理するだけでは済みません。同じ名前を何万人が使う場合にも、その人数に応じて毎回すべての問い合わせ先をたどる必要があるか、という問題があります。
@@ -104,6 +102,8 @@ UDPの応答へ必要な情報が収まらない場合もあります。応答�
 
 ## 8. 実際の応答から何が分かるか
 
+期限の仕組みを踏まえて、同じ名前を繰り返し問い合わせたとき、返されるTTLがどう変わるかを見ます。ここで確かめるのは応答の値であり、速度の優劣ではありません。
+
 次は2026年11月20日に、著者のWindows作業端末から採った観測です。対象は `example.com` のAレコード、問い合わせ先に指定したアドレスは `1.1.1.1` です。地理的な観測地点とリゾルバ内部の処理先は特定していません。キャッシュの消去や対象レコードの変更も行っていません。
 
 PowerShell 7.6.9で、次のコマンドを3回実行し、各応答の後に2秒待ちました。`-DnsOnly` と `-NoHostsFile` は、DNS以外の補助的な名前解決とhostsファイルを対象から外すための指定です。[Microsoft Learn: Resolve-DnsName](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname)
@@ -136,9 +136,9 @@ Resolve-DnsName -Name example.com -Type A -Server 1.1.1.1 -DnsOnly -NoHostsFile
 
 | 前 | 後 |
 | --- | --- |
-| 「DNSが遅い」 | 「利用者の待ち時間を、再利用できた場合、上流をたどった場合、失敗した場合に分けて測る」 |
+| 「DNSが遅い」 | 「手元で再利用できる場合と、上流から取得し直す場合では、利用者が待つ処理が違います」 |
 | 「DNSのキャッシュを増やせば速くなる」 | 「再利用前に容量不足で捨てている情報には効果を期待できますが、二度と求められない回答を保持しても待ち時間は減りません」 |
-| 「DNSの二度目の応答が速いからキャッシュが効いた」 | 「同じ処理先とキャッシュ状態を確認していないので、時間差だけでは原因を断定しない」 |
+| 「DNSの二度目の応答が速いからキャッシュが効いた」 | 「同じ処理先とキャッシュ状態を確認していないので、時間差だけでは原因を断定できません」 |
 
 ## 参照資料
 
@@ -152,6 +152,8 @@ Resolve-DnsName -Name example.com -Type A -Server 1.1.1.1 -DnsOnly -NoHostsFile
 - [RFC 9520: Negative Caching of DNS Resolution Failures](https://www.rfc-editor.org/rfc/rfc9520.html) 概要、3節
 - [BIND 9.20.16 ARM: prefetch](https://bind9.readthedocs.io/en/v9.20.16/reference.html#namedconf-statement-prefetch) 実装例
 - [Microsoft Learn: Resolve-DnsName](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname) 観測コマンドのオプション
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/03-performance.md)
 
 ---
 

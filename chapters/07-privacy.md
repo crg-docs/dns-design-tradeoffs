@@ -6,7 +6,7 @@ layout: default
 
 レコードの内容が公開情報でも、誰がいつその名前を問い合わせたかまで公開したいとは限りません。問い合わせの並びは、利用するサービスや行動を推測する材料になり得ます。ただし、名前解決が行われたことは、その人がページを読んだことの証明ではありません。アプリケーションの自動通信やキャッシュも関わります。[RFC 9076: DNS Privacy Considerations 1・4.1節](https://www.rfc-editor.org/rfc/rfc9076.html)
 
-本章の要件は、単に「暗号化する」ではなく、観測者ごとに必要以上の情報を渡さないことです。制作上の責務は[文書設計メモ](../docs/document-design/07-privacy.md)に記録しています。
+本章の要件は、単に「暗号化する」ではなく、観測者ごとに必要以上の情報を渡さないことです。
 
 ## 1. 観測者を経路上に置く
 
@@ -53,6 +53,8 @@ QNAME MinimisationとECSは、互いを打ち消す二者択一の設定でも�
 ここからは本書の運用上の整理です。選定時には、通信方式に加え、何を記録するか、どれだけ保管するか、誰がアクセスするか、別の目的で使うかを確認します。公開方針があることと、外部からその実施状況を検証できることは別です。プロトコルの仕様だけから、特定の事業者がログを保存しないとは判断しません。
 
 ## 5. 二つの入口から同じ名前を問い合わせる
+
+通信の入口を変えても、同じアドレスが返ることがあります。では、回答が同じなら、情報の見え方も同じなのでしょうか。通常の問い合わせとHTTPSの入口を比べ、回答内容と保護範囲を区別します。
 
 2026年11月20日、日本標準時21時24分に、Windowsの同じ端末から`example.com`のAレコードを問い合わせました。一つは`Resolve-DnsName`で`1.1.1.1`を指定する通常の問い合わせ、もう一つはCloudflareのHTTPS JSON APIです。OS全体のリゾルバ設定は変更していません。
 
@@ -110,6 +112,8 @@ HTTPS側はHTTPステータス200で、応答の`Question`に`example.com`と型
 - [RFC 9156: DNS Query Name Minimisation to Improve Privacy](https://www.rfc-editor.org/rfc/rfc9156.html) 2・3節
 - [RFC 7871: Client Subnet in DNS Queries](https://www.rfc-editor.org/rfc/rfc7871.html) 2・7.3節
 - [Cloudflare: Using JSON](https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/)
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/07-privacy.md)
 
 ---
 
