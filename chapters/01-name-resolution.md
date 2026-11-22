@@ -5,8 +5,6 @@ layout: default
 # 準備章 なぜ名前解決が必要なのか
 
 > この章は、第2章以降を読むための最小限の前提を説明します。DNSの通信手順や設定方法は扱いません。
->
-> 構成の理由、扱わない範囲、見送った案は[この章の設計メモ](../docs/document-design/01-name-resolution.md)に記録します。
 
 DNSを「覚えにくいIPアドレスの代わりに、覚えやすい名前を使う仕組み」と説明することがあります。これは利点の一つですが、それだけでは、利用者がURLを覚えずにブックマークやリンクを使う現在にも名前解決が必要な理由を説明できません。
 
@@ -95,6 +93,8 @@ DNSが名前解決そのものを発明したわけではありません。1973�
 - [RFC 1034: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034.html) 2.1節、3.1節、4.2節
 - [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 2節、6節、7節
 - [RFC 1794: DNS Support for Load Balancing](https://www.rfc-editor.org/rfc/rfc1794.html)
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/01-name-resolution.md)
 
 ---
 

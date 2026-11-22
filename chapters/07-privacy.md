@@ -6,7 +6,7 @@ layout: default
 
 レコードの内容が公開情報でも、誰がいつその名前を問い合わせたかまで公開したいとは限りません。問い合わせの並びは、利用するサービスや行動を推測する材料になり得ます。ただし、名前解決が行われたことは、その人がページを読んだことの証明ではありません。アプリケーションの自動通信やキャッシュも関わります。[RFC 9076: DNS Privacy Considerations 1・4.1節](https://www.rfc-editor.org/rfc/rfc9076.html)
 
-本章の要件は、単に「暗号化する」ではなく、観測者ごとに必要以上の情報を渡さないことです。制作上の責務は[文書設計メモ](../docs/document-design/07-privacy.md)に記録しています。
+本章の要件は、単に「暗号化する」ではなく、観測者ごとに必要以上の情報を渡さないことです。
 
 ## 1. 観測者を経路上に置く
 
@@ -110,6 +110,8 @@ HTTPS側はHTTPステータス200で、応答の`Question`に`example.com`と型
 - [RFC 9156: DNS Query Name Minimisation to Improve Privacy](https://www.rfc-editor.org/rfc/rfc9156.html) 2・3節
 - [RFC 7871: Client Subnet in DNS Queries](https://www.rfc-editor.org/rfc/rfc7871.html) 2・7.3節
 - [Cloudflare: Using JSON](https://developers.cloudflare.com/1.1.1.1/encryption/dns-over-https/make-api-requests/dns-json/)
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/07-privacy.md)
 
 ---
 

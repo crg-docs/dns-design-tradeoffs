@@ -4,8 +4,6 @@ layout: default
 
 # 第3章 性能――問い合わせ経路と再利用を設計する
 
-> 構成の理由と扱う範囲は[この章の設計メモ](../docs/document-design/03-performance.md)に記録します。
-
 ## 1. 待たされる人と、仕事を引き受ける人
 
 利用者にとっては、ページを開くまでの待ち時間の一部として名前解決があります。一方、名前解決を提供する側は、一人の問い合わせを処理するだけでは済みません。同じ名前を何万人が使う場合にも、その人数に応じて毎回すべての問い合わせ先をたどる必要があるか、という問題があります。
@@ -152,6 +150,8 @@ Resolve-DnsName -Name example.com -Type A -Server 1.1.1.1 -DnsOnly -NoHostsFile
 - [RFC 9520: Negative Caching of DNS Resolution Failures](https://www.rfc-editor.org/rfc/rfc9520.html) 概要、3節
 - [BIND 9.20.16 ARM: prefetch](https://bind9.readthedocs.io/en/v9.20.16/reference.html#namedconf-statement-prefetch) 実装例
 - [Microsoft Learn: Resolve-DnsName](https://learn.microsoft.com/en-us/powershell/module/dnsclient/resolve-dnsname) 観測コマンドのオプション
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/03-performance.md)
 
 ---
 

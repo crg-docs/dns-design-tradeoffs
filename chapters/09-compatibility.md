@@ -6,7 +6,7 @@ layout: default
 
 新しい機能を実装したクライアントと権威サーバーがあっても、その間の再帰リゾルバや転送機器まで同時に更新できるとは限りません。古い実装と新しい実装が混ざる経路を通って初めて、利用者はその機能を使えます。
 
-本章では、既存の利用を維持しながら拡張する設計を考えます。互換性を「何があっても古い動作へ戻すこと」とせず、どこまで共存でき、どの保証は落とせないかを決めます。制作上の責務は[文書設計メモ](../docs/document-design/09-compatibility.md)に記録しています。
+本章では、既存の利用を維持しながら拡張する設計を考えます。互換性を「何があっても古い動作へ戻すこと」とせず、どこまで共存でき、どの保証は落とせないかを決めます。
 
 ## 1. 意味を理解することと、データを運ぶこと
 
@@ -92,6 +92,8 @@ APIやメッセージ形式を拡張するときも、未知の値を中継で�
 - [RFC 3596: DNS Extensions to Support IP Version 6](https://www.rfc-editor.org/rfc/rfc3596.html) 1節
 - [RFC 8906: A Common Operational Problem in DNS Servers: Failure to Communicate](https://www.rfc-editor.org/rfc/rfc8906.html)
 - [RFC 7766: DNS Transport over TCP - Implementation Requirements](https://www.rfc-editor.org/rfc/rfc7766.html)
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/09-compatibility.md)
 
 ---
 

@@ -4,8 +4,6 @@ layout: default
 
 # 第0章 DNSはなぜ複雑に見えるのか
 
-> 構成の理由と扱う範囲は[この章の設計メモ](../docs/document-design/00-introduction.md)に記録します。
-
 DNS（Domain Name System）を「名前をIPアドレスへ変換する一つの機能」と捉えると、その詳細は必要以上に複雑に見えます。情報を管理する側と探す側が分かれ、同じ情報が複数の場所に置かれ、更新してもすぐには全員に届きません。通信を守る仕組みも、一種類ではありません。なぜ、一つの名前を調べるためにこれほどの分担が必要なのでしょうか。
 
 DNSという一語には、実際には複数の関心事が含まれています。名前を一意に組み立てる**名前空間**、誰がどの範囲に責任を持つかという**管理**、必要な情報を探す**問い合わせ**、結果を再利用する**キャッシュ**、メッセージを運ぶ**通信**、偽造や濫用に備える**セキュリティ**、そして変更や障害を扱う**運用**です。これらは同じ問題を別の言葉で呼んでいるのではありません。世界規模で名前解決を提供するため、異なる問題への回答が一つの基盤に重なっています。
@@ -53,6 +51,8 @@ DNSは、すべての要件を最大化した完成形ではありません。�
 - [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 本書の用語はこの現行版を基準とします。
 - [RFC 4033: DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033.html) 4節。DNSSECが機密性を提供する仕組みではないこと。
 - [RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 障害中に期限切れのデータを返す判断。
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/00-introduction.md)
 
 ---
 

@@ -4,8 +4,6 @@ layout: default
 
 # 第1章 見取り図――DNSは何を、いつ、なぜ足してきたか
 
-> 構成の理由と扱う範囲は[この章の設計メモ](../docs/document-design/01-timeline.md)に記録します。
-
 DNSは一度に設計されたものではありません。1973年から今日までのあいだに、必要が生じるたびに何かが足されてきました。いま複雑に見えるのは、その積み上がりを平らに眺めているからです。
 
 この章は積み上がりを一覧するための見取り図です。
@@ -179,6 +177,8 @@ DNSは一度に設計されたものではありません。1973年から今日�
 - [RFC 1034](https://www.rfc-editor.org/rfc/rfc1034.html) / [RFC 1035](https://www.rfc-editor.org/rfc/rfc1035.html) 現在も標準として使われている1987年の仕様。STD 13。
 - [RFC 3833: Threat Analysis of the Domain Name System (DNS)](https://www.rfc-editor.org/rfc/rfc3833.html) 偽造や汚染の危険が2004年に体系的に整理されていたこと。
 - [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 本書の用語の基準。
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/01-timeline.md)
 
 ---
 

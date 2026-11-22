@@ -4,8 +4,6 @@ layout: default
 
 # 第4章 可用性と障害耐性――どの障害に対して応答を続けるのか
 
-> 構成の理由と扱う範囲は[この章の設計メモ](../docs/document-design/04-availability.md)に記録します。
-
 ## 1. 「止まらない」の対象を決める
 
 利用者が必要としているのは、サーバーの電源が入っていることではありません。必要な名前を調べ、利用できる情報を、待てる時間内に得られることです。応答元が生きていても経路が途切れていれば、その利用者には使えません。応答が返っても、要求した情報を解決できなければ、その要求は成功していません。
@@ -135,6 +133,8 @@ Serialは、ゾーンの版を比較するための値です。この観測で�
 - [IANA: Root Name Servers](https://www.iana.org/domains/root/servers)
 - [Cloudflare DNS: Zone transfers](https://developers.cloudflare.com/dns/zone-setups/zone-transfers/)
 - [Cloudflare: Cloudflare outage on July 17, 2020](https://blog.cloudflare.com/cloudflare-outage-on-july-17-2020/)
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/04-availability.md)
 
 ---
 

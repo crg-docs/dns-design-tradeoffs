@@ -8,8 +8,6 @@ layout: default
 
 ただし「DNSを安全にする」という一つの設定はありません。偽の回答を受け入れないこと、管理者以外に書き換えさせないこと、通信内容を見せないこと、サービスを攻撃の踏み台にしないことは、異なる要件です。本章は最初の二つと資源の保護を扱い、通信内容の開示は第7章へつなぎます。
 
-制作上の責務は[文書設計メモ](../docs/document-design/06-security.md)に記録しています。
-
 ## 1. 守る対象と攻撃者の位置を決める
 
 例えば、通信経路を見ることのできない攻撃者が、再帰リゾルバへ偽の応答を送り込む場合があります。一方で、管理用アカウントを奪って正規の更新経路からレコードを変える場合もあります。後者のデータに正規の署名が付けば、署名だけで管理者の意図との違いは見抜けません。RFC 3833は、応答の偽造、データの改変、サービス妨害などを異なる脅威として整理しています。[RFC 3833: Threat Analysis of the Domain Name System (DNS) 2節](https://www.rfc-editor.org/rfc/rfc3833.html)
@@ -113,6 +111,8 @@ Transaction Signature（TSIG）は、共有秘密を使ってDNSの取引単位�
 - [RFC 8945: Secret Key Transaction Authentication for DNS (TSIG)](https://www.rfc-editor.org/rfc/rfc8945.html)
 - [RFC 5358: Preventing Use of Recursive Nameservers in Reflector Attacks](https://www.rfc-editor.org/rfc/rfc5358.html) 3・4節
 - [BIND 9.20.16: rate-limit](https://bind9.readthedocs.io/en/v9.20.16/reference.html#namedconf-statement-rate-limit)
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/06-security.md)
 
 ---
 

@@ -4,8 +4,6 @@ layout: default
 
 # 第2章 拡張性――集中管理を分割する
 
-> 構成の理由、扱わない範囲、見送った案は[この章の設計メモ](../docs/document-design/02-scalability.md)に記録します。
-
 ## 1. 誰の何を改善するのか
 
 名前と対応情報を管理する仕組みでは、登録する人、一覧を維持して配る人、名前を利用する人が、それぞれ異なる工程を担います。対象と更新主体が増えたとき、登録する人は中央の受付と調整を待ち、維持する人には要求と配布作業が集まります。利用する人は更新された一覧を取得し、自分の環境へ反映しなければなりません。本章が扱うのは、この三者の待ち時間、作業量、失敗時の影響範囲を、対象と主体が増えても許容できる範囲に保つという課題です。
@@ -175,6 +173,8 @@ graph TD
 - [RFC 921: Domain Name System Implementation Schedule—Revised](https://www.rfc-editor.org/rfc/rfc921.html)
 - [RFC 1034: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034.html) 2.1節、2.4節、3.1節、4.2節、5.3.1節、5.3.3節
 - [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 2節、7節
+
+本文の構成と範囲: [文書設計メモ](../docs/document-design/02-scalability.md)
 
 ---
 
