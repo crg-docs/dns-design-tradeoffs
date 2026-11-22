@@ -4,7 +4,7 @@ layout: default
 
 # 第1章 見取り図――DNSは何を、いつ、なぜ足してきたか
 
-DNSは一度に設計されたものではありません。1973年から今日までのあいだに、必要が生じるたびに何かが足されてきました。いま複雑に見えるのは、その積み上がりを平らに眺めているからです。
+DNSは一度に設計されたものではありません。本章では前史にあたる1973年のホスト表から始め、必要に応じて設計が追加・改訂されてきた過程を眺めます。いま複雑に見える仕組みを、その積み上がりに沿って捉えるためです。
 
 この章は積み上がりを一覧するための見取り図です。
 
@@ -24,7 +24,7 @@ DNSは一度に設計されたものではありません。1973年から今日�
   <text x="120" y="78" font-size="13" fill="#24292f">各サイトが自前のホスト表を維持していた（RFC 606）</text>
   <text x="86" y="110" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1974</text>
   <circle cx="104" cy="106" r="4" fill="#0969da"/>
-  <text x="120" y="110" font-size="13" fill="#24292f">NICが一覧（HOSTS.TXT）を生成する体制へ（RFC 608）</text>
+  <text x="120" y="110" font-size="13" fill="#24292f">NICによる一覧の生成・配布案（RFC 608）</text>
   <text x="86" y="142" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">1982</text>
   <circle cx="104" cy="138" r="4" fill="#0969da"/>
   <text x="120" y="142" font-size="13" fill="#24292f">ホスト表と、その配布サービス（RFC 810 / 811）</text>
@@ -172,6 +172,7 @@ DNSは一度に設計されたものではありません。1973年から今日�
 年表に挙げた各資料は [出典と、それが裏付ける記述](../references/sources.md) に登録しています。この章の記述で中心となるものは次の通りです。
 
 - [RFC 606: Host Names On-line](https://www.rfc-editor.org/rfc/rfc606.html) 集中管理以前に各サイトが自前の表を維持していたこと。1973年12月の同時代の記録。
+- [RFC 608: Host Names On-Line](https://www.rfc-editor.org/rfc/rfc608.html) NICによる機械可読な一覧の生成・配布案。1974年1月。提供開始日は後で告知するとしているため、稼働開始日の記録とは区別します。
 - [RFC 882: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc882.html) 表のサイズと更新頻度が管理の限界に近いという同時代の問題認識。1983年11月。
 - [RFC 921: Domain Name System Implementation Schedule - Revised](https://www.rfc-editor.org/rfc/rfc921.html) 一意性を全体から親の下へ移し替えたこと。1984年10月。
 - [RFC 1034](https://www.rfc-editor.org/rfc/rfc1034.html) / [RFC 1035](https://www.rfc-editor.org/rfc/rfc1035.html) 現在も標準として使われている1987年の仕様。STD 13。
