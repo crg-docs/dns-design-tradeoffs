@@ -103,7 +103,7 @@ DNSは一度に設計されたものではありません。本章では前史�
   <text x="86" y="1066" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2020</text>
   <circle cx="104" cy="1062" r="4" fill="#0969da"/>
   <text x="120" y="1066" font-size="13" fill="#24292f">期限切れデータによる応答継続（RFC 8767）</text>
-  <text x="0" y="1108" font-size="13" font-weight="bold" fill="#0969da">悪用への耐性</text>
+  <text x="0" y="1108" font-size="13" font-weight="bold" fill="#0969da">悪用への耐性と既存仕様の明確化</text>
   <line x1="0" y1="1116" x2="680" y2="1116" stroke="#0969da" stroke-width="1" opacity="0.25"/>
   <text x="86" y="1140" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2008</text>
   <circle cx="104" cy="1136" r="4" fill="#0969da"/>
@@ -114,7 +114,7 @@ DNSは一度に設計されたものではありません。本章では前史�
   <text x="86" y="1204" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2010</text>
   <circle cx="104" cy="1200" r="4" fill="#0969da"/>
   <text x="120" y="1204" font-size="13" fill="#24292f">ゾーン転送の明確化（RFC 5936）</text>
-  <text x="0" y="1246" font-size="13" font-weight="bold" fill="#0969da">見られていることへの対処</text>
+  <text x="0" y="1246" font-size="13" font-weight="bold" fill="#0969da">通信方式と情報開示の見直し</text>
   <line x1="0" y1="1254" x2="680" y2="1254" stroke="#0969da" stroke-width="1" opacity="0.25"/>
   <text x="86" y="1278" font-size="13" font-weight="bold" fill="#57606a" text-anchor="end">2016</text>
   <circle cx="104" cy="1274" r="4" fill="#0969da"/>
@@ -154,8 +154,8 @@ DNSは一度に設計されたものではありません。本章では前史�
 | 隙間を埋める | 変更通知、差分転送、不在応答の再利用 | [第3章 性能](03-performance.md)、[第4章 可用性と障害耐性](04-availability.md)、[第5章 整合性と変更反映](05-consistency.md) |
 | 応答を信用する | 署名による出所認証、脅威の分析 | [第6章 セキュリティ](06-security.md)、[第8章 運用性と保守性](08-operations.md)、[第9章 後方互換性と発展性](09-compatibility.md) |
 | 止まらないようにする | 複数地点への配置、期限切れデータの利用 | [第4章 可用性と障害耐性](04-availability.md)、[第3章 性能](03-performance.md)、[第5章 整合性と変更反映](05-consistency.md) |
-| 悪用への耐性 | 受け入れ条件の厳格化、提供先の制限 | [第6章 セキュリティ](06-security.md)、[第4章 可用性と障害耐性](04-availability.md) |
-| 見られていることへの対処 | 通信の暗号化、開示する名前の最小化 | [第7章 プライバシー](07-privacy.md)、[第8章 運用性と保守性](08-operations.md) |
+| 悪用への耐性と既存仕様の明確化 | 受け入れ条件の厳格化、提供先の制限、転送仕様の明確化 | [第6章 セキュリティ](06-security.md)、[第4章 可用性と障害耐性](04-availability.md) |
+| 通信方式と情報開示の見直し | 通信の暗号化、TCP要件、ネットワーク情報の追加、開示する名前の最小化 | [第3章 性能](03-performance.md)、[第7章 プライバシー](07-privacy.md)、[第8章 運用性と保守性](08-operations.md) |
 
 第10章（総括）はどの時代にも対応しません。全章を通した結論を扱う章です。
 
@@ -163,8 +163,8 @@ DNSは一度に設計されたものではありません。本章では前史�
 
 | 前 | 後 |
 | --- | --- |
-| 「DNSは複雑だ」 | 「40年かけて足され続けた結果であり、足された順に理由がある」 |
-| 「DNSは最初からこう設計されていた」 | 「1987年に定まったのは骨格で、通知、拡張、署名、暗号化、応答継続は後から足された」 |
+| 「DNSは複雑だ」 | 「異なる問題への追加・改訂が重なっています。文書の年代だけでなく、それぞれが扱う問題を分けて読みます」 |
+| 「DNSは最初からこう設計されていた」 | 「1987年の骨格にも複製やキャッシュはあり、その後に通知、拡張、署名、暗号化、期限切れデータの利用が加わりました」 |
 | 「DNSの仕様が公表された年に普及した」 | 「年表が示すのは文書の公表年で、配備や普及の時期は別の資料が必要です」 |
 
 ## 参照資料

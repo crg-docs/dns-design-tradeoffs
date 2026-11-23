@@ -55,6 +55,10 @@ flowchart TD
 
 「署名がない」と「署名の検証に失敗した」は同じ状態ではありません。検証途中で必要な情報を取得できない場合を、すべてIndeterminateと呼ぶわけでもありません。
 
+特に、通常のDNSSEC検証と「対象の回答は必ずSecureでなければ使わない」という利用側の方針は異なります。検証するリゾルバでも、Insecureと判断したデータを返せます。逆に、保護されるはずのデータで署名が欠けているなら、単なる未署名として受け入れる理由にはなりません。検証をリゾルバへ任せ、検証を省略させない問い合わせでBogusになった場合は、解決失敗を示すSERVFAILを返す扱いです。[RFC 4035 4.3・5.5節](https://www.rfc-editor.org/rfc/rfc4035.html)
+
+例えば、公開名を広く解決する用途と、管理下の特定名に署名による認証を必須とする用途では、成功の条件が違います。後者では、未署名でも回答を得られたことを成功に含められません。これは本書の方針比較です。保護のない回答を許す範囲と、検証失敗時に止める範囲を分け、名前解決の成功率にもその違いを反映します。
+
 署名を検証する再帰リゾルバへ処理を任せる場合、その結果を端末へどう伝えるかも境界になります。応答のAD（Authenticated Data）ビットは検証結果に関わる通知ですが、信頼できない経路で受け取ったビットだけを安全性の根拠にはできません。端末自身で検証するか、委ねるリゾルバと通信経路を信頼できる条件にする必要があります。ADの取り扱いはRFC 4035に加え、RFC 6840で明確化されています。[RFC 4035 4.9.3節](https://www.rfc-editor.org/rfc/rfc4035.html)、[RFC 6840: Clarifications and Implementation Notes for DNS Security (DNSSEC) 5.7・5.8節](https://www.rfc-editor.org/rfc/rfc6840.html)
 
 検証を必須にする経路では、署名の期限切れや親子の鍵情報の不整合が、利用者にとって名前解決の失敗になります。偽造を受け入れない効果と、署名運用の失敗でも応答を利用できなくなる代償が対になっています。失敗を見たら検証を無効にする、という運用では、保護したかった要件を失います。署名、鍵、時刻、親の情報のどこで連鎖が切れたかを調べる準備が必要です。[RFC 6781: DNSSEC Operational Practices, Version 2 4節](https://www.rfc-editor.org/rfc/rfc6781.html)
@@ -76,6 +80,8 @@ Transaction Signature（TSIG）は、共有秘密を使ってDNSの取引単位�
 ## 7. 対策を維持できるかまで評価する
 
 第3章のTTLと、署名を使って検証できる期間は別です。TTLを長くしても署名の有効期間は延びません。アドレスを変更しないゾーンでも、有効な署名を提供し続ける保守が必要になります。[RFC 4033 8.1・8.2節](https://www.rfc-editor.org/rfc/rfc4033.html)
+
+さらに、検証者が認証済みのRRsetをキャッシュするときのTTLは、RRsetと署名のTTL、署名にある元のTTL、署名の残り有効時間の最小値以下に制限されます。「TTLはまだ残るから、署名が切れても認証済みとして使える」とは判断できません。第4章の期限切れデータによる応答継続でも、署名検証を通る保証が自動で付くわけではありません。[RFC 4035 5.3.3節](https://www.rfc-editor.org/rfc/rfc4035.html)
 
 ここから本書が引く設計上の判断は、応答元の複製と署名の保守を一組で評価することです。複製が同じ期限の署名を返しているなら、台数を増やしてもその期限切れを回避できません。応答が返るかだけでなく、利用者が必要とする検証を通るかまでを可用性の条件に含めます。
 
@@ -105,7 +111,7 @@ Transaction Signature（TSIG）は、共有秘密を使ってDNSの取引単位�
 - [RFC 2181: Clarifications to the DNS Specification](https://www.rfc-editor.org/rfc/rfc2181.html) 5.4.1節
 - [RFC 4033: DNS Security Introduction and Requirements](https://www.rfc-editor.org/rfc/rfc4033.html) 4・5・8節
 - [RFC 4034: Resource Records for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4034.html) 2・3・5節
-- [RFC 4035: Protocol Modifications for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4035.html) 4.9.3・5節
+- [RFC 4035: Protocol Modifications for the DNS Security Extensions](https://www.rfc-editor.org/rfc/rfc4035.html) 4.3・4.9.3・5.3.3・5.5節
 - [RFC 6840: Clarifications and Implementation Notes for DNS Security (DNSSEC)](https://www.rfc-editor.org/rfc/rfc6840.html) 5.7・5.8節
 - [RFC 6781: DNSSEC Operational Practices, Version 2](https://www.rfc-editor.org/rfc/rfc6781.html) 4節
 - [RFC 8945: Secret Key Transaction Authentication for DNS (TSIG)](https://www.rfc-editor.org/rfc/rfc8945.html)

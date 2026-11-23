@@ -34,6 +34,8 @@ Primaryとの更新経路が止まっても、Secondaryはそれまでに取得�
 
 したがって、「Primaryが停止した」という一文だけでは利用者への影響は決まりません。他の応答元の到達性、最後に取得したデータ、更新できない期間、問い合わせ側の挙動を併せて見ます。
 
+例えば、転送元との連絡が途絶えたままSOAの失効期限を迎えれば、Secondaryのプロセスが動いていても、そのコピーを権威情報として使い続けることはできません。期限までに更新経路を復旧できることが、複製で応答を支える条件になります。これは、問い合わせ側のキャッシュを何秒再利用できるかというTTLとは別の期限です。[RFC 1034 4.3.5節](https://www.rfc-editor.org/rfc/rfc1034.html)
+
 ## 3. コピーを配る方法にも、負荷と時間の交換がある
 
 ゾーン全体を転送する方式が**AXFR**です。一部分の変更であっても全体を送るので、仕組みを理解しやすい一方、ゾーンが大きい場合や変更が頻繁な場合には転送量が増えます。AXFRは1987年のRFC 1034/1035にも存在し、2010年のRFC 5936で相互運用に必要な詳細が明確化されました。[RFC 5936: DNS Zone Transfer Protocol (AXFR)](https://www.rfc-editor.org/rfc/rfc5936.html) 概要
@@ -81,6 +83,10 @@ IANAの公式一覧も、ルートの権威サーバー名と、各地に置か�
 可用性の評価では、応答を返せた割合だけでなく、古い情報が利用者にどの影響を与えるかを見ます。アドレスが以前と同じなら利用を継続できても、すでに接続先が廃止されていれば、名前解決の応答が返るだけでは目的を果たしません。古い情報を使う設計は「正しさを不要にした」のではなく、最新性の保証を弱めることで応答を続ける判断です。
 
 また、使える古い情報がキャッシュにない場合には生成できません。上流が復旧したことを検知できなければ、古い情報を使う期間も延びます。応答継続を導入するときは、更新失敗を見失わない観測と、復旧後に通常の更新へ戻ったことの確認を組み合わせます。
+
+本書の設計上の比較では、旧接続先も有効な読み取りサービスなら、古い回答を許して停止を避ける案を検討できます。反対に、旧接続先を利用させてはいけないなら、回答が返る割合を上げるだけでは要件に反します。ゾーンを提供する側は外部リゾルバの設定を一括で選べないため、「TTLを過ぎれば旧接続先は使われない」という前提で停止計画を組むこともできません。どこまで古い情報を許すかという運用方針と、それを制御できる範囲を分けます。
+
+署名付きデータには、さらに署名の有効期間があります。期限切れのキャッシュを返せることと、その回答が署名検証を通ることは別です。RFC 8767も、署名の有効期間を過ぎたデータによる検証失敗を注意点に挙げています。検証が必要な利用者への応答継続は、署名の条件も満たして評価します。詳細は[第6章](06-security.md)で扱います。[RFC 8767 10節](https://www.rfc-editor.org/rfc/rfc8767.html)
 
 ## 7. 二つの応答元を観測してみる
 
@@ -130,7 +136,7 @@ Serialは、ゾーンの版を比較するための値です。この観測で�
 - [RFC 3258: Distributing Authoritative Name Servers via Shared Unicast Addresses](https://www.rfc-editor.org/rfc/rfc3258.html)
 - [RFC 4786: Operation of Anycast Services](https://www.rfc-editor.org/rfc/rfc4786.html) 3節、4節
 - [RFC 5936: DNS Zone Transfer Protocol (AXFR)](https://www.rfc-editor.org/rfc/rfc5936.html) 概要
-- [RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 4〜6節
+- [RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 4〜6・10節
 - [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 6節
 - [IANA: Root Name Servers](https://www.iana.org/domains/root/servers)
 - [Cloudflare DNS: Zone transfers](https://developers.cloudflare.com/dns/zone-setups/zone-transfers/)
