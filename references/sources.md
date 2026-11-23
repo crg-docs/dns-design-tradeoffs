@@ -66,8 +66,8 @@ RFC 2308の3・5節は不在応答のTTLに使用します。後続のRFC 9499�
 
 | 資料 | 本書で裏付ける記述 | 主な箇所・注意 |
 | --- | --- | --- |
-| [RFC 1034: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034.html) | HOSTS.TXT方式で顕在化した問題、DNSの設計目標、名前空間・委譲・ゾーンによる分散管理 | 特に2章。従来方式の制約と新方式の狙いを確認する。1987年11月、STD 13。RFC 882/883/973を廃止。19件のRFCが更新しており、1987年時点の規定を現在の規定として扱わない |
-| [RFC 1035: Domain Names—Implementation and Specification](https://www.rfc-editor.org/rfc/rfc1035.html) | 名前サーバーとリゾルバの実装、マスターファイルなど、分散したデータを提供・利用する仕組み | RFC 1034と一組で読む。1987年11月、STD 13。29件のRFCが更新しており、本書の論点に関わる更新（RFC 2181、2308、4033〜4035、5936、7766、8767）は該当章で個別に確認する |
+| [RFC 1034: Domain Names—Concepts and Facilities](https://www.rfc-editor.org/rfc/rfc1034.html) | HOSTS.TXT方式で顕在化した問題、DNSの設計目標、名前空間・委譲・ゾーンによる分散管理 | 特に2章。従来方式の制約と新方式の狙いを確認する。1987年11月、STD 13。RFC 882/883/973を廃止。後続RFCが更新しており、1987年時点の規定を現在の規定として扱わない |
+| [RFC 1035: Domain Names—Implementation and Specification](https://www.rfc-editor.org/rfc/rfc1035.html) | 名前サーバーとリゾルバの実装、マスターファイルなど、分散したデータを提供・利用する仕組み | RFC 1034と一組で読む。1987年11月、STD 13。後続RFCが更新しており、本書の論点に関わる更新（RFC 2181、2308、4033〜4035、5936、7766、8767）は該当章で個別に確認する |
 | [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) | ドメイン、ゾーン、委譲などを現行用語で区別する基準 | 歴史資料中の語と現行語を区別する。2024年、BCP 219。RFC 8499を廃止。RFC 2308の更新対象はforwarderとQNAMEの定義の明確化であり、否定応答の保持期間の変更ではない |
 
 ## 名前解決を読むための前提
