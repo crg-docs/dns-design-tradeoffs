@@ -136,7 +136,7 @@ Serialは、ゾーンの版を比較するための値です。この観測で�
 - [RFC 3258: Distributing Authoritative Name Servers via Shared Unicast Addresses](https://www.rfc-editor.org/rfc/rfc3258.html)
 - [RFC 4786: Operation of Anycast Services](https://www.rfc-editor.org/rfc/rfc4786.html) 3節、4節
 - [RFC 5936: DNS Zone Transfer Protocol (AXFR)](https://www.rfc-editor.org/rfc/rfc5936.html) 概要
-- [RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 4〜6節
+- [RFC 8767: Serving Stale Data to Improve DNS Resiliency](https://www.rfc-editor.org/rfc/rfc8767.html) 4〜6・10節
 - [RFC 9499: DNS Terminology](https://www.rfc-editor.org/rfc/rfc9499.html) 6節
 - [IANA: Root Name Servers](https://www.iana.org/domains/root/servers)
 - [Cloudflare DNS: Zone transfers](https://developers.cloudflare.com/dns/zone-setups/zone-transfers/)
