@@ -1,0 +1,16 @@
+{
+  "target": "chapters/05-consistency.md",
+  "documentDesign": "docs/document-design/05-consistency.md",
+  "entries": [
+    {
+      "type": "alternative",
+      "anchor": "5. 権威側を変え、キャッシュ側を観測する",
+      "content": "設計メモでは、有料の公開ゾーンで固定の「世界への伝播時間」を示す案を採っていません。全利用者は観測できず、権威側とキャッシュ側を分けたローカル実験で今回の因果を確認できるためです。"
+    },
+    {
+      "type": "research",
+      "anchor": "本章から持ち帰れるのは、更新経路、版の比較、再利用期限、無効化手段を分けて設計する考え方です。",
+      "content": "設計メモに残る実験範囲はCoreDNSの一構成です。複製、署名付き移行、Serve Staleを実測する場合は、別の条件と記録を追加します。今回の結果を、それらの動作確認として扱いません。"
+    }
+  ]
+}
